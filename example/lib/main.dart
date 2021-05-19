@@ -15,11 +15,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
+        bottomNavigationBar: ShapedBottomBar(
+          backgroundColor: Colors.grey,
+          items: [Container(),Container()]
+        ),
         body: Container(
           width: double.infinity,
-          child: Center(
-           child: ShapedBottomBar(),
-          ),
+          child: Center(child: Text("Hello")),
         ),
       ),
     );
