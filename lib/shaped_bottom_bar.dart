@@ -19,7 +19,7 @@ class ShapedBottomBar extends StatefulWidget {
   ShapedBottomBar(
       {required this.items,
       required this.onItemChanged,
-      this.height = 50,
+      this.height = 70,
       this.width,
       this.backgroundColor = Colors.white,
       this.withRoundCorners = false,
@@ -53,12 +53,9 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
   Widget build(BuildContext context) {
     return Container(
       width: this.widget.width ?? MediaQuery.of(context).size.width,
-      height: this.widget.height,
-      decoration: BoxDecoration(
-          color: this.widget.backgroundColor,
-          borderRadius:
-              this.widget.withRoundCorners ? this.widget.cornerRadius : null),
+      height: 70,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: renderBarItems(),
       ),
@@ -67,26 +64,46 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
 
   List<Widget> renderBarItems() {
     List<Widget> bottomBarItems = [];
+    List<Widget> renderingItems = [];
     for (var index = 0; index < this.widget.items.length; index++) {
       var item = this.widget.items[index];
-      if (index == this.selectedIndex && this.widget.shape != ShapeType.NONE) {
-        bottomBarItems.add(renderSelectedItem(item));
+      if (index == selectedIndex) {
+        if (bottomBarItems.isNotEmpty) {
+          renderingItems.addAll(bottomBarItems);
+        }
+        renderingItems.add(renderSelectedItem(Expanded(flex: 1, child: item)));
+        bottomBarItems.clear();
       } else {
-        bottomBarItems.add(Expanded(
-          flex: 1,
-          child: renderClickableWidget(index, item),
-        ));
+        bottomBarItems
+            .add(Expanded(flex: 1, child: renderClickableWidget(index, item)));
       }
     }
-    return bottomBarItems;
+    if (bottomBarItems.isNotEmpty) {
+      renderingItems.addAll(bottomBarItems);
+    }
+    return renderingItems;
   }
 
-  Widget renderClickableWidget(int index, Widget widget) {
+  Widget renderClickableWidget(int index, Widget item) {
     return InkWell(
       onTap: () {
         this.onItemSelected(index);
       },
-      child: widget,
+      child: Container(
+        height: 50,
+        color: widget.backgroundColor,
+        child: item,
+      ),
+    );
+  }
+
+  Widget nonSelectedItems(List<Widget> items) {
+    return Container(
+      height: 50,
+      color: widget.backgroundColor,
+      child: Row(
+        children: items,
+      ),
     );
   }
 
@@ -98,6 +115,22 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
   }
 
   Widget renderSelectedItem(Widget baseWidget) {
-    return SquareShape(background: this.widget.shapeColor!, child: baseWidget,size: 70,);
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: 70,
+            height: 50,
+            color: widget.backgroundColor,
+          ),
+        ),
+        SquareShape(
+          background: this.widget.shapeColor!,
+          child: baseWidget,
+          size: 70,
+        ),
+      ],
+    );
   }
 }
