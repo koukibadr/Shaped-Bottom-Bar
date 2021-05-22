@@ -10,17 +10,12 @@ class CircleShape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PhysicalModel(
-      color: Colors.black,
-      shadowColor: Colors.black,
-      elevation: 2.5,
-      child: Container(
-        width: this.size,
-        height: this.size,
-        decoration:
-            BoxDecoration(shape: BoxShape.circle, color: this.background),
-        child: this.child,
-      ),
+    return Container(
+      width: this.size,
+      height: this.size,
+      decoration:
+          BoxDecoration(shape: BoxShape.circle, color: this.background),
+      child: this.child,
     );
   }
 }

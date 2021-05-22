@@ -2,7 +2,9 @@ library shaped_bottom_bar;
 
 import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/utils/shapes.dart';
+import 'package:shaped_bottom_bar/widgets/circle_shape.dart';
 import 'package:shaped_bottom_bar/widgets/square.dart';
+import 'package:shaped_bottom_bar/widgets/triangle_shape.dart';
 
 class ShapedBottomBar extends StatefulWidget {
   final double height;
@@ -125,7 +127,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
             color: widget.backgroundColor,
           ),
         ),
-        SquareShape(
+        TriangleShape(
           background: this.widget.shapeColor!,
           child: baseWidget,
           size: 70,
