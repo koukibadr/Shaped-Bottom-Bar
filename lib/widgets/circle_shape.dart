@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CircleShape extends StatelessWidget {
   final double size;
-  final Color background;
+  final Color? background;
   final Widget child;
 
   CircleShape(

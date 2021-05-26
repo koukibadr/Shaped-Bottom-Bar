@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class DrawHexagon extends CustomPainter {
   final Color? background;
 
-  DrawHexagon({this.background = Colors.black});
+  DrawHexagon(
+      {this.background = Colors.black});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -15,15 +16,15 @@ class DrawHexagon extends CustomPainter {
     canvas.drawPath(path_0, paint_0);
   }
 
-  Path renderHexagon(Size size) {
+  Path renderHexagon(Size size){
     final path = Path();
-    path.lineTo((size.width * 0.5), size.height * 0.1);
-    path.lineTo(0, (size.height * 0.3));
-    path.lineTo(0, (size.height * 0.7));
-    path.lineTo((size.width * 0.5), size.height * 0.9);
-    path.lineTo(size.width, (size.height * 0.7));
-    path.lineTo(size.width, (size.height * 0.3));
-    path.lineTo((size.width * 0.5), size.height * 0.1);
+    path.lineTo((size.width * 0.2), size.height*0.1);
+    path.lineTo((size.width * 0.8), 0);
+    path.lineTo((size.width), size.height*0.5);
+    path.lineTo((size.width * 0.8), size.height*0.9);
+    path.lineTo((size.width * 0.2), size.height*0.9);
+    path.lineTo(0, size.height*0.5);
+    path.lineTo((size.width * 0.2), size.height*0.1);
     path.close();
     return path;
   }

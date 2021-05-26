@@ -56,7 +56,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
   Widget build(BuildContext context) {
     return Container(
       width: this.widget.width ?? MediaQuery.of(context).size.width,
-      height: 70,
+      height: this.widget.height,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -93,19 +93,9 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         this.onItemSelected(index);
       },
       child: Container(
-        height: 50,
+        height: (this.widget.height * 0.75),
         color: widget.backgroundColor,
         child: item,
-      ),
-    );
-  }
-
-  Widget nonSelectedItems(List<Widget> items) {
-    return Container(
-      height: 50,
-      color: widget.backgroundColor,
-      child: Row(
-        children: items,
       ),
     );
   }
@@ -118,21 +108,49 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
   }
 
   Widget renderSelectedItem(Widget baseWidget) {
+    Widget shapedWidget;
+    switch (widget.shape) {
+      case ShapeType.CIRCLE:
+        shapedWidget = CircleShape(
+            child: baseWidget,
+            background: widget.shapeColor,
+            size: this.widget.height);
+        break;
+      case ShapeType.SQUARE:
+        shapedWidget = SquareShape(
+            child: baseWidget,
+            background: widget.shapeColor,
+            size: this.widget.height);
+        break;
+      case ShapeType.TRIANGLE:
+        shapedWidget = TriangleShape(
+          child: baseWidget,
+          background: widget.shapeColor,
+          size: this.widget.height,
+        );
+        break;
+      case ShapeType.HEXAGONE:
+        shapedWidget = HexagonShape(
+          child: baseWidget,
+          background: widget.shapeColor,
+          size: this.widget.height,
+        );
+        break;
+      default:
+        shapedWidget = Container();
+        break;
+    }
     return Stack(
       children: [
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            width: 70,
-            height: 50,
+            width: this.widget.height,
+            height: (this.widget.height * 0.75),
             color: widget.backgroundColor,
           ),
         ),
-        HexagonShape(
-          background: this.widget.shapeColor!,
-          child: baseWidget,
-          size: 90,
-        ),
+        shapedWidget,
       ],
     );
   }

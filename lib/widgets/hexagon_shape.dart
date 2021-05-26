@@ -3,7 +3,7 @@ import 'package:shaped_bottom_bar/paint/draw_hexagon.dart';
 
 class HexagonShape extends StatelessWidget {
   final double size;
-  final Color background;
+  final Color? background;
   final Widget child;
 
   HexagonShape(
@@ -14,7 +14,7 @@ class HexagonShape extends StatelessWidget {
     return Container(
       child: CustomPaint(
         size: Size(this.size, this.size),
-        painter: DrawHexagon(center: Offset(28, 25), radius: 30,background: Colors.pink),
+        painter: DrawHexagon(background: this.background),
         child: this.child,
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class DrawHexagon extends CustomPainter {
+class DrawRoyalShape extends CustomPainter {
   final Color? background;
 
-  DrawHexagon({this.background = Colors.black});
+  DrawRoyalShape({this.background = Colors.black});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -17,13 +17,14 @@ class DrawHexagon extends CustomPainter {
 
   Path renderHexagon(Size size) {
     final path = Path();
-    path.lineTo((size.width * 0.5), size.height * 0.1);
-    path.lineTo(0, (size.height * 0.3));
-    path.lineTo(0, (size.height * 0.7));
-    path.lineTo((size.width * 0.5), size.height * 0.9);
-    path.lineTo(size.width, (size.height * 0.7));
-    path.lineTo(size.width, (size.height * 0.3));
-    path.lineTo((size.width * 0.5), size.height * 0.1);
+    path.lineTo(0, 0);
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height * 0.8);
+    path.lineTo(size.width * 0.8, size.height);
+    path.lineTo(size.width * 0.2, size.height);
+    path.lineTo(0, size.height * 0.8);
+    path.lineTo(0, 0);
+
     path.close();
     return path;
   }

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class SquareShape extends StatelessWidget {
   final double size;
-  final Color background;
+  final Color? background;
   final Widget child;
 
   SquareShape(
-      {required this.background, required this.child, this.size = 1000});
+      {this.background = Colors.black, required this.child, this.size = 1000});
 
   @override
   Widget build(BuildContext context) {

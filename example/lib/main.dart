@@ -28,8 +28,9 @@ class MyApp extends StatelessWidget {
 
           },
           backgroundColor: Color(0xffefefef),
-          shape: ShapeType.SQUARE,
+          shape: ShapeType.HEXAGONE,
           shapeColor: Colors.blue,
+          height: 80,
         ),
         body: Container(
           child: Center(child: SquareShape(background: Colors.black, child: Container(),size: 100,)),
