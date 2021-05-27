@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class DrawHexagon extends CustomPainter {
+class DrawRotatedHexagon extends CustomPainter {
   final Color? background;
 
-  DrawHexagon(
+  DrawRotatedHexagon(
       {this.background = Colors.black});
 
   @override

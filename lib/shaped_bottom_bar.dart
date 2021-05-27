@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/utils/shapes.dart';
 import 'package:shaped_bottom_bar/widgets/circle_shape.dart';
 import 'package:shaped_bottom_bar/widgets/hexagon_shape.dart';
+import 'package:shaped_bottom_bar/widgets/rotated_hexagon.dart';
+import 'package:shaped_bottom_bar/widgets/royal_shape.dart';
 import 'package:shaped_bottom_bar/widgets/square.dart';
 import 'package:shaped_bottom_bar/widgets/triangle_shape.dart';
 
@@ -131,6 +133,20 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         break;
       case ShapeType.HEXAGONE:
         shapedWidget = HexagonShape(
+          child: baseWidget,
+          background: widget.shapeColor,
+          size: this.widget.height,
+        );
+        break;
+      case ShapeType.ROTATED_HEXAGON:
+        shapedWidget = RotatedHexagon(
+          child: baseWidget,
+          background: widget.shapeColor,
+          size: this.widget.height,
+        );
+        break;
+      case ShapeType.ROYAL_SHAPE:
+        shapedWidget = RoyalShape(
           child: baseWidget,
           background: widget.shapeColor,
           size: this.widget.height,
