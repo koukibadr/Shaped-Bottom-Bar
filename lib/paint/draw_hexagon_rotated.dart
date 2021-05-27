@@ -18,13 +18,13 @@ class DrawRotatedHexagon extends CustomPainter {
 
   Path renderHexagon(Size size){
     final path = Path();
-    path.lineTo((size.width * 0.2), size.height*0.1);
-    path.lineTo((size.width * 0.8), 0);
-    path.lineTo((size.width), size.height*0.5);
-    path.lineTo((size.width * 0.8), size.height*0.9);
-    path.lineTo((size.width * 0.2), size.height*0.9);
-    path.lineTo(0, size.height*0.5);
-    path.lineTo((size.width * 0.2), size.height*0.1);
+    path.lineTo((size.width * 0.3), size.height*0.1);
+    path.lineTo((size.width * 0.7), size.height*0.1);
+    path.lineTo((size.width * 0.85), size.height*0.5);
+    path.lineTo((size.width * 0.7), size.height*0.9);
+    path.lineTo((size.width * 0.3), size.height*0.9);
+    path.lineTo((size.width * 0.15), size.height*0.5);
+    path.lineTo((size.width * 0.3), size.height*0.1);
     path.close();
     return path;
   }

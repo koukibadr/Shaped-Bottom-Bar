@@ -14,9 +14,10 @@ class DrawTriangleShape extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var path = Path();
 
-    path.moveTo(size.width / 2, 0);
-    path.lineTo(0, size.height);
-    path.lineTo(size.height, size.width);
+    path.lineTo((size.width * 0.5), 0);
+    path.lineTo((size.width*0.15), (size.height*0.85));
+    path.lineTo((size.width*0.85), (size.height*0.85));
+    path.lineTo((size.width * 0.5), 0);
     path.close();
 
     canvas.drawPath(path, painter);

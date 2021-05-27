@@ -1,44 +1,51 @@
 library shaped_bottom_bar;
 
 import 'package:flutter/material.dart';
+import 'package:shaped_bottom_bar/models/shaped_item_object.dart';
 import 'package:shaped_bottom_bar/utils/shapes.dart';
 import 'package:shaped_bottom_bar/widgets/circle_shape.dart';
 import 'package:shaped_bottom_bar/widgets/hexagon_shape.dart';
 import 'package:shaped_bottom_bar/widgets/rotated_hexagon.dart';
 import 'package:shaped_bottom_bar/widgets/royal_shape.dart';
+import 'package:shaped_bottom_bar/widgets/shaped_bottom_bar_item.dart';
 import 'package:shaped_bottom_bar/widgets/square.dart';
 import 'package:shaped_bottom_bar/widgets/triangle_shape.dart';
 
+const double SHAPED_BOTTOM_BAR_SIZE = 70;
 class ShapedBottomBar extends StatefulWidget {
   final double height;
   final Color backgroundColor;
   final bool withRoundCorners;
   final double? width;
   final BorderRadius? cornerRadius;
-  final List<Widget> items;
   final ShapeType shape;
   final int selectedItemIndex;
   final Color? shapeColor;
   final Function(int) onItemChanged;
+  final List<ShapedItemObject> listItems;
+  final Color iconsColor;
+  final Color selectedIconColor;
 
   ShapedBottomBar(
-      {required this.items,
-      required this.onItemChanged,
-      this.height = 70,
+      {required this.onItemChanged,
+      required this.listItems,
+      this.shapeColor,
+      this.iconsColor = Colors.black,
+      this.selectedIconColor = Colors.blue,
+      this.height = SHAPED_BOTTOM_BAR_SIZE,
       this.width,
       this.backgroundColor = Colors.white,
       this.withRoundCorners = false,
       this.cornerRadius,
       this.shape = ShapeType.NONE,
-      this.selectedItemIndex = 0,
-      this.shapeColor}) {
+      this.selectedItemIndex = 0}) {
     if (this.withRoundCorners) {
       assert(this.cornerRadius != null);
     }
     if (this.shape != ShapeType.NONE) {
       assert(this.shapeColor != null);
     }
-    assert(this.items.isNotEmpty);
+    assert(this.listItems.isNotEmpty);
   }
 
   @override
@@ -47,11 +54,13 @@ class ShapedBottomBar extends StatefulWidget {
 
 class _ShapedBottomBarState extends State<ShapedBottomBar> {
   late int selectedIndex;
+  late List<Widget> bottomBarWidgets;
 
   @override
   void initState() {
     super.initState();
     this.selectedIndex = this.widget.selectedItemIndex;
+    generateListOfWidgets();
   }
 
   @override
@@ -70,13 +79,13 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
   List<Widget> renderBarItems() {
     List<Widget> bottomBarItems = [];
     List<Widget> renderingItems = [];
-    for (var index = 0; index < this.widget.items.length; index++) {
-      var item = this.widget.items[index];
+    for (var index = 0; index < this.bottomBarWidgets.length; index++) {
+      var item = this.bottomBarWidgets[index];
       if (index == selectedIndex) {
         if (bottomBarItems.isNotEmpty) {
           renderingItems.addAll(bottomBarItems);
         }
-        renderingItems.add(renderSelectedItem(Expanded(flex: 1, child: item)));
+        renderingItems.add(Expanded(flex: 1,child: renderSelectedItem(item)));
         bottomBarItems.clear();
       } else {
         bottomBarItems
@@ -106,6 +115,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     this.widget.onItemChanged(position);
     setState(() {
       this.selectedIndex = position;
+      generateListOfWidgets();
     });
   }
 
@@ -134,8 +144,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
       case ShapeType.HEXAGONE:
         shapedWidget = HexagonShape(
           child: baseWidget,
-          background: widget.shapeColor,
-          size: this.widget.height,
+          background: widget.shapeColor
         );
         break;
       case ShapeType.ROTATED_HEXAGON:
@@ -153,7 +162,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         );
         break;
       default:
-        shapedWidget = Container();
+        shapedWidget = baseWidget;
         break;
     }
     return Stack(
@@ -161,7 +170,6 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            width: this.widget.height,
             height: (this.widget.height * 0.75),
             color: widget.backgroundColor,
           ),
@@ -169,5 +177,24 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         shapedWidget,
       ],
     );
+  }
+
+  generateListOfWidgets() {
+    bottomBarWidgets = [];
+    for (ShapedItemObject object in this.widget.listItems) {
+      if (this.widget.listItems.indexOf(object) == this.selectedIndex) {
+        bottomBarWidgets.add(ShapedBottomBarItem(
+          icon: object.iconData,
+          renderWithText: false,
+          themeColor: this.widget.selectedIconColor,
+        ));
+      } else {
+        bottomBarWidgets.add(ShapedBottomBarItem(
+            icon: object.iconData,
+            text: object.title ?? "",
+            themeColor: this.widget.iconsColor,
+            renderWithText: object.title != null));
+      }
+    }
   }
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class VerticalItem extends StatelessWidget {
+class ShapedBottomBarItem extends StatelessWidget {
   final Color themeColor;
-  final String text;
+  final String? text;
   final IconData icon;
   final bool renderWithText;
 
-  VerticalItem(
+  ShapedBottomBarItem(
       {required this.icon,
-      required this.text,
+      this.text = "",
       this.themeColor = Colors.black,
       this.renderWithText = true});
 
@@ -18,8 +18,8 @@ class VerticalItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(this.icon,color: this.themeColor),
-          this.renderWithText ? Text("Example"): Container()
+          Icon(this.icon, color: this.themeColor),
+          this.renderWithText ? Text(this.text ?? "") : Container()
         ],
       ),
     );

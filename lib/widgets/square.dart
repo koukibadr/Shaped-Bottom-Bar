@@ -15,8 +15,8 @@ class SquareShape extends StatelessWidget {
       shadowColor: Colors.black,
       elevation: 2.5,
       child: Container(
-        width: this.size,
-        height: this.size,
+        width: this.size * 0.8,
+        height: this.size * 0.8,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(

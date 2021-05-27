@@ -18,11 +18,11 @@ class DrawHexagon extends CustomPainter {
   Path renderHexagon(Size size) {
     final path = Path();
     path.lineTo((size.width * 0.5), size.height * 0.1);
-    path.lineTo(0, (size.height * 0.3));
-    path.lineTo(0, (size.height * 0.7));
+    path.lineTo((size.width * 0.25), (size.height * 0.3));
+    path.lineTo((size.width * 0.25), (size.height * 0.7));
     path.lineTo((size.width * 0.5), size.height * 0.9);
-    path.lineTo(size.width, (size.height * 0.7));
-    path.lineTo(size.width, (size.height * 0.3));
+    path.lineTo((size.width * 0.75), (size.height * 0.7));
+    path.lineTo((size.width * 0.75), (size.height * 0.3));
     path.lineTo((size.width * 0.5), size.height * 0.1);
     path.close();
     return path;
