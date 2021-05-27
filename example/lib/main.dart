@@ -8,7 +8,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,24 +15,49 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        bottomNavigationBar: ShapedBottomBar(
+      home: MyScreen(),
+    );
+  }
+}
+
+class MyScreen extends StatefulWidget {
+  @override
+  _MyScreenState createState() => _MyScreenState();
+}
+
+class _MyScreenState extends State<MyScreen> {
+
+  List<Widget> screens = [
+    Container(color: Colors.red),
+    Container(color: Colors.blue),
+    Container(color: Colors.black),
+    Container(color: Colors.purple)
+  ];
+  
+  int selectedItem = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: ShapedBottomBar(
           backgroundColor: Colors.blueGrey,
           listItems: [
-            ShapedItemObject(iconData: Icons.settings,title: "Settings"),
-            ShapedItemObject(iconData: Icons.account_balance_outlined,title: "Account"),
-            ShapedItemObject(iconData: Icons.verified_user_rounded,title: "User"),
-            ShapedItemObject(iconData: Icons.login,title: "Logout"),
+            ShapedItemObject(iconData: Icons.settings, title: "Settings"),
+            ShapedItemObject(
+                iconData: Icons.account_balance_outlined, title: "Account"),
+            ShapedItemObject(
+                iconData: Icons.verified_user_rounded, title: "User"),
+            ShapedItemObject(iconData: Icons.login, title: "Logout"),
           ],
-          onItemChanged: (position) => {},
+          onItemChanged: (position) {
+            setState(() {
+              this.selectedItem = position;
+            });
+          },
           shapeColor: Colors.blue,
           selectedIconColor: Colors.white,
-          shape: ShapeType.TRIANGLE
-        ),
-        body: Container(
-          child: Center(),
-        ),
-      ),
+          shape: ShapeType.TRIANGLE),
+      body: screens[selectedItem],
     );
   }
 }

@@ -12,33 +12,43 @@ import 'package:shaped_bottom_bar/widgets/square.dart';
 import 'package:shaped_bottom_bar/widgets/triangle_shape.dart';
 
 const double SHAPED_BOTTOM_BAR_SIZE = 70;
+
 class ShapedBottomBar extends StatefulWidget {
+  
+  final List<ShapedItemObject> listItems;
+  final Function(int) onItemChanged;
+
   final double height;
-  final Color backgroundColor;
-  final bool withRoundCorners;
   final double? width;
+
+  final bool withRoundCorners;
   final BorderRadius? cornerRadius;
   final ShapeType shape;
   final int selectedItemIndex;
+  
+  //Colors
   final Color? shapeColor;
-  final Function(int) onItemChanged;
-  final List<ShapedItemObject> listItems;
+  final Color backgroundColor;
   final Color iconsColor;
   final Color selectedIconColor;
+  final Color textColor;
+  final Color bottomBarTopColor;
 
   ShapedBottomBar(
       {required this.onItemChanged,
       required this.listItems,
-      this.shapeColor,
-      this.iconsColor = Colors.black,
-      this.selectedIconColor = Colors.blue,
       this.height = SHAPED_BOTTOM_BAR_SIZE,
       this.width,
-      this.backgroundColor = Colors.white,
       this.withRoundCorners = false,
       this.cornerRadius,
       this.shape = ShapeType.NONE,
-      this.selectedItemIndex = 0}) {
+      this.selectedItemIndex = 0,
+      this.shapeColor,
+      this.iconsColor = Colors.black,
+      this.textColor = Colors.black,
+      this.selectedIconColor = Colors.white,
+      this.bottomBarTopColor = Colors.white,
+      this.backgroundColor = Colors.blue,}) {
     if (this.withRoundCorners) {
       assert(this.cornerRadius != null);
     }
@@ -68,6 +78,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     return Container(
       width: this.widget.width ?? MediaQuery.of(context).size.width,
       height: this.widget.height,
+      color: this.widget.bottomBarTopColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -85,7 +96,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         if (bottomBarItems.isNotEmpty) {
           renderingItems.addAll(bottomBarItems);
         }
-        renderingItems.add(Expanded(flex: 1,child: renderSelectedItem(item)));
+        renderingItems.add(Expanded(flex: 1, child: renderSelectedItem(item)));
         bottomBarItems.clear();
       } else {
         bottomBarItems
@@ -142,10 +153,8 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         );
         break;
       case ShapeType.HEXAGONE:
-        shapedWidget = HexagonShape(
-          child: baseWidget,
-          background: widget.shapeColor
-        );
+        shapedWidget =
+            HexagonShape(child: baseWidget, background: widget.shapeColor);
         break;
       case ShapeType.ROTATED_HEXAGON:
         shapedWidget = RotatedHexagon(
