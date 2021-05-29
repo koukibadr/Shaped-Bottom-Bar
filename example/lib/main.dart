@@ -26,27 +26,25 @@ class MyScreen extends StatefulWidget {
 }
 
 class _MyScreenState extends State<MyScreen> {
-
   List<Widget> screens = [
-    Container(color: Colors.red),
-    Container(color: Colors.blue),
-    Container(color: Colors.black),
-    Container(color: Colors.purple)
+    Container(color: Colors.white),
+    Container(color: Colors.white),
+    Container(color: Colors.white),
+    Container(color: Colors.white)
   ];
-  
+
   int selectedItem = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: ShapedBottomBar(
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.grey,
+          iconsColor: Colors.white,
           listItems: [
             ShapedItemObject(iconData: Icons.settings, title: "Settings"),
-            ShapedItemObject(
-                iconData: Icons.account_balance_outlined, title: "Account"),
-            ShapedItemObject(
-                iconData: Icons.verified_user_rounded, title: "User"),
+            ShapedItemObject(iconData: Icons.account_balance_outlined, title: "Account"),
+            ShapedItemObject(iconData: Icons.verified_user_rounded, title: "User"),
             ShapedItemObject(iconData: Icons.login, title: "Logout"),
           ],
           onItemChanged: (position) {
@@ -54,9 +52,9 @@ class _MyScreenState extends State<MyScreen> {
               this.selectedItem = position;
             });
           },
-          shapeColor: Colors.blue,
+          shapeColor: Colors.pink,
           selectedIconColor: Colors.white,
-          shape: ShapeType.TRIANGLE),
+          shape: ShapeType.HEXAGONE),
       body: screens[selectedItem],
     );
   }
