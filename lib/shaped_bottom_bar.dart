@@ -11,8 +11,18 @@ import 'package:shaped_bottom_bar/widgets/shaped_bottom_bar_item.dart';
 import 'package:shaped_bottom_bar/widgets/square.dart';
 import 'package:shaped_bottom_bar/widgets/triangle_shape.dart';
 
+
+///The size of the bottom bar: default 70
 const double SHAPED_BOTTOM_BAR_SIZE = 70;
 
+
+///Main widget of shaped bottom bar
+///required [listItems] the list of [ShapedItemObject] that will be shown 
+///[onItemChanged] function that will be trigerred everytime the current item changes
+///Other attributes are optional
+///
+///By default the bottom bar will be rendered without shape.
+///to set a shape use [shape] type of [ShapeType] enum contain 6 different shapes.
 class ShapedBottomBar extends StatefulWidget {
   
   final List<ShapedItemObject> listItems;
@@ -87,6 +97,9 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     );
   }
 
+
+  ///generates the list of widgets  that will be displayed in the bottom bar
+  ///return [List<Widget>] contains oll widget (selected and unselected items)
   List<Widget> renderBarItems() {
     List<Widget> bottomBarItems = [];
     List<Widget> renderingItems = [];
@@ -109,6 +122,14 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     return renderingItems;
   }
 
+
+  ///render a clickable widget, every unselected item will be clickable
+  ///the selected item is not clickable
+  ///
+  ///[index]: the index of the item, will be used to update the current selected item
+  ///[item]: the actual unselected widget, will be used as a child in [InkWell] widget
+  ///
+  ///return a clickable [Widget] with a function that updates the current selected  item
   Widget renderClickableWidget(int index, Widget item) {
     return InkWell(
       onTap: () {
@@ -122,6 +143,14 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     );
   }
 
+
+  ///updates the current selected item index to a new index 
+  ///
+  ///triggered on tapping on any unselected widget,
+  ///and trigger the [onItemChanged] function passed as parameter the the main widget
+  ///[position]: the position of the new selected item
+  ///
+  /// has no return value
   void onItemSelected(int position) {
     this.widget.onItemChanged(position);
     setState(() {
@@ -130,6 +159,14 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     });
   }
 
+
+  ///render the selected widget
+  ///based on the parameter [shape] it render the apporpriate shape
+  ///if shape equals to [ShapeType.NONE] the selected item will be just a colored icon with the color is [selectedIconColor]
+  ///
+  ///[baseWidget] : the selected widget that will be wrapped  with a shape.
+  ///
+  ///return a [Widget] type variable.
   Widget renderSelectedItem(Widget baseWidget) {
     Widget shapedWidget;
     switch (widget.shape) {
@@ -188,21 +225,26 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     );
   }
 
+
+  ///Generate list of [ShapedBottomBarItem] objects, used in rendering the shaped bottom bar
+  ///iterates over [this.widget.listItems] and create the apporpriate [ShapedBottomBarItem] widget
+  ///
+  ///this function has no parameter, and has no return value
   generateListOfWidgets() {
     bottomBarWidgets = [];
-    for (ShapedItemObject object in this.widget.listItems) {
-      if (this.widget.listItems.indexOf(object) == this.selectedIndex) {
+    for (ShapedItemObject item in this.widget.listItems) {
+      if (this.widget.listItems.indexOf(item) == this.selectedIndex) {
         bottomBarWidgets.add(ShapedBottomBarItem(
-          icon: object.iconData,
+          icon: item.iconData,
           renderWithText: false,
           themeColor: this.widget.selectedIconColor,
         ));
       } else {
         bottomBarWidgets.add(ShapedBottomBarItem(
-            icon: object.iconData,
-            text: object.title ?? "",
+            icon: item.iconData,
+            text: item.title ?? "",
             themeColor: this.widget.iconsColor,
-            renderWithText: object.title != null));
+            renderWithText: item.title != null));
       }
     }
   }
