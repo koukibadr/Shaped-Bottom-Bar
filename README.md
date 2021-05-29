@@ -99,3 +99,7 @@ And the example below will generate a  bottom bar with an hexagon shape
 
 
 ![Shaped bottom bar with hexagon shape](https://github.com/koukibadr/Shaped-Bottom-Bar/blob/main/example/hexagon_shape_bottom_bar.png?raw=true)
+
+
+Happy to get your issues and feedback on the project repository in the link below:
+[Link to repository](https://github.com/koukibadr/Shaped-Bottom-Bar)
