@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+
+///genreates a Square shape widget with the given [child] in the center of the Square
+///[child] is a required parameter
+///
+///
+/// [background] : optional parameter used to change the background of the Square
+/// [size] : optional parameter by default it's 50
 class SquareShape extends StatelessWidget {
   final double size;
   final Color? background;

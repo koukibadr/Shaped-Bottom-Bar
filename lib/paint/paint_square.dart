@@ -13,11 +13,11 @@ class PaintSquare extends CustomPainter {
       ..strokeWidth = 0.0;
 
     Path path_0 = Path();
-    path_0.moveTo(size.width * 0.2500000, size.height * 0.3000000);
-    path_0.lineTo(size.width * 0.2500000, size.height * 0.6000000);
-    path_0.lineTo(size.width * 0.4500000, size.height * 0.6000000);
-    path_0.lineTo(size.width * 0.4500000, size.height * 0.3000000);
-    path_0.lineTo(size.width * 0.2500000, size.height * 0.3000000);
+    path_0.lineTo(0, 0);
+    path_0.lineTo(size.width, 0);
+    path_0.lineTo(size.width, size.height);
+    path_0.lineTo(0, size.height);
+    path_0.lineTo(0, 0);
     path_0.close();
 
     canvas.drawPath(path_0, paint_0);

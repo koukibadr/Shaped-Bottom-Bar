@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+
+///The main widget used as a child to the bottom bar,
+///every item will be used as [ShapedBottomBarItem]
 class ShapedBottomBarItem extends StatelessWidget {
   final Color themeColor;
   final String? text;
