@@ -1,3 +1,4 @@
+import 'package:example/my_shape.dart';
 import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/models/shaped_item_object.dart';
 import 'package:shaped_bottom_bar/utils/shapes.dart';
@@ -39,12 +40,14 @@ class _MyScreenState extends State<MyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: ShapedBottomBar(
-          backgroundColor: Colors.grey,
-          iconsColor: Colors.white,
+          backgroundColor: Colors.blue[50],
+          iconsColor: Color(0xFF020750),
           listItems: [
             ShapedItemObject(iconData: Icons.settings, title: "Settings"),
-            ShapedItemObject(iconData: Icons.account_balance_outlined, title: "Account"),
-            ShapedItemObject(iconData: Icons.verified_user_rounded, title: "User"),
+            ShapedItemObject(
+                iconData: Icons.account_balance_outlined, title: "Account"),
+            ShapedItemObject(
+                iconData: Icons.verified_user_rounded, title: "User"),
             ShapedItemObject(iconData: Icons.login, title: "Logout"),
           ],
           onItemChanged: (position) {
@@ -52,10 +55,16 @@ class _MyScreenState extends State<MyScreen> {
               this.selectedItem = position;
             });
           },
-          shapeColor: Colors.pink,
-          selectedIconColor: Colors.white,
-          shape: ShapeType.HEXAGONE),
-      body: screens[selectedItem],
+          textStyle: TextStyle(
+            color: Colors.red,
+            fontSize: 15
+          ),
+          shape: ShapeType.CUSTOM,
+          customShape: CustomPaint(
+            painter: MyShape(),
+            size: Size(50, 50),
+          )),
+      body: Container(),
     );
   }
 }
