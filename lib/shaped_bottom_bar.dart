@@ -5,6 +5,7 @@ import 'package:shaped_bottom_bar/models/shaped_item_object.dart';
 import 'package:shaped_bottom_bar/utils/shapes.dart';
 import 'package:shaped_bottom_bar/widgets/circle_shape.dart';
 import 'package:shaped_bottom_bar/widgets/custom_shape_widget.dart';
+import 'package:shaped_bottom_bar/widgets/diamond_shape.dart';
 import 'package:shaped_bottom_bar/widgets/hexagon_shape.dart';
 import 'package:shaped_bottom_bar/widgets/octagon_shape.dart';
 import 'package:shaped_bottom_bar/widgets/pentagon_shape.dart';
@@ -240,6 +241,13 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         break;
       case ShapeType.OCATGON:
         shapedWidget = OctagonShape(
+          child: baseWidget,
+          background: widget.shapeColor!,
+          size: this.widget.height,
+        );
+        break;
+      case ShapeType.DIAMOND:
+        shapedWidget = DiamondShape(
           child: baseWidget,
           background: widget.shapeColor!,
           size: this.widget.height,

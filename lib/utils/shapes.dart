@@ -10,5 +10,6 @@ enum ShapeType {
   STAR,
   RHOMBUS,
   OCATGON,
+  DIAMOND,
   CUSTOM
 }
