@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/models/shaped_item_object.dart';
 import 'package:shaped_bottom_bar/utils/shapes.dart';
 import 'package:shaped_bottom_bar/widgets/circle_shape.dart';
+import 'package:shaped_bottom_bar/widgets/custom_shape_widget.dart';
 import 'package:shaped_bottom_bar/widgets/hexagon_shape.dart';
 import 'package:shaped_bottom_bar/widgets/rotated_hexagon.dart';
 import 'package:shaped_bottom_bar/widgets/royal_shape.dart';
@@ -11,20 +12,17 @@ import 'package:shaped_bottom_bar/widgets/shaped_bottom_bar_item.dart';
 import 'package:shaped_bottom_bar/widgets/square.dart';
 import 'package:shaped_bottom_bar/widgets/triangle_shape.dart';
 
-
 ///The size of the bottom bar: default 70
 const double SHAPED_BOTTOM_BAR_SIZE = 70;
 
-
 ///Main widget of shaped bottom bar
-///required [listItems] the list of [ShapedItemObject] that will be shown 
+///required [listItems] the list of [ShapedItemObject] that will be shown
 ///[onItemChanged] function that will be trigerred everytime the current item changes
 ///Other attributes are optional
 ///
 ///By default the bottom bar will be rendered without shape.
 ///to set a shape use [shape] type of [ShapeType] enum contain 6 different shapes.
 class ShapedBottomBar extends StatefulWidget {
-  
   final List<ShapedItemObject> listItems;
   final Function(int) onItemChanged;
 
@@ -35,14 +33,19 @@ class ShapedBottomBar extends StatefulWidget {
   final BorderRadius? cornerRadius;
   final ShapeType shape;
   final int selectedItemIndex;
-  
+
   //Colors
   final Color? shapeColor;
   final Color backgroundColor;
   final Color iconsColor;
   final Color selectedIconColor;
-  final Color textColor;
+  final TextStyle textStyle;
   final Color bottomBarTopColor;
+
+  ///used to implement shaped bottom bar with custom shape
+  ///with a given CustomPaint object and set [shape] to [ShapeType.CUSTOM]
+  ///
+  final CustomPaint? customShape;
 
   ShapedBottomBar(
       {required this.onItemChanged,
@@ -55,16 +58,23 @@ class ShapedBottomBar extends StatefulWidget {
       this.selectedItemIndex = 0,
       this.shapeColor,
       this.iconsColor = Colors.black,
-      this.textColor = Colors.black,
+      this.textStyle = const TextStyle(color: Colors.black),
       this.selectedIconColor = Colors.white,
       this.bottomBarTopColor = Colors.white,
-      this.backgroundColor = Colors.blue,}) {
+      this.backgroundColor = Colors.blue,
+      this.customShape}) {
     if (this.withRoundCorners) {
       assert(this.cornerRadius != null);
     }
-    if (this.shape != ShapeType.NONE) {
+
+    if (this.shape != ShapeType.NONE && this.shape != ShapeType.CUSTOM) {
       assert(this.shapeColor != null);
     }
+
+    if (this.shape == ShapeType.CUSTOM) {
+      assert(this.customShape != null);
+    }
+
     assert(this.listItems.isNotEmpty);
   }
 
@@ -97,7 +107,6 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     );
   }
 
-
   ///generates the list of widgets  that will be displayed in the bottom bar
   ///return [List<Widget>] contains oll widget (selected and unselected items)
   List<Widget> renderBarItems() {
@@ -122,7 +131,6 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     return renderingItems;
   }
 
-
   ///render a clickable widget, every unselected item will be clickable
   ///the selected item is not clickable
   ///
@@ -143,8 +151,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     );
   }
 
-
-  ///updates the current selected item index to a new index 
+  ///updates the current selected item index to a new index
   ///
   ///triggered on tapping on any unselected widget,
   ///and trigger the [onItemChanged] function passed as parameter the the main widget
@@ -158,7 +165,6 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
       generateListOfWidgets();
     });
   }
-
 
   ///render the selected widget
   ///based on the parameter [shape] it render the apporpriate shape
@@ -207,6 +213,12 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
           size: this.widget.height,
         );
         break;
+      case ShapeType.CUSTOM:
+        shapedWidget = CustomShapeWidget(
+          child: baseWidget,
+          shape: this.widget.customShape!,
+        );
+        break;
       default:
         shapedWidget = baseWidget;
         break;
@@ -225,7 +237,6 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     );
   }
 
-
   ///Generate list of [ShapedBottomBarItem] objects, used in rendering the shaped bottom bar
   ///iterates over [this.widget.listItems] and create the apporpriate [ShapedBottomBarItem] widget
   ///
@@ -241,10 +252,12 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         ));
       } else {
         bottomBarWidgets.add(ShapedBottomBarItem(
-            icon: item.iconData,
-            text: item.title ?? "",
-            themeColor: this.widget.iconsColor,
-            renderWithText: item.title != null));
+          icon: item.iconData,
+          text: item.title ?? "",
+          themeColor: this.widget.iconsColor,
+          renderWithText: item.title != null,
+          textStyle: this.widget.textStyle,
+        ));
       }
     }
   }
