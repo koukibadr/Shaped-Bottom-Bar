@@ -1,3 +1,15 @@
+## [0.0.2] - 06-06-2021.
+
+* Add more built-in shapes
+    - Rhombus shape
+    - Star shape
+    - Octagon shape
+    - Pentagon shape
+    - Diamond shape
+
+* Support custom shape and pass it as a parameter.
+* Support styling items text with passing a TextStyle object
+
 ## [0.0.1] - 05-29-2021.
 
 * List of intial 6 shapes
