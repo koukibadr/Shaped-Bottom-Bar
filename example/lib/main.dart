@@ -59,7 +59,7 @@ class _MyScreenState extends State<MyScreen> {
             color: Colors.red,
             fontSize: 15
           ),
-          shape: ShapeType.OCATGON,
+          shape: ShapeType.DIAMOND,
           shapeColor: Colors.red),
       body: Container(),
     );
