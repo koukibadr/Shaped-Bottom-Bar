@@ -6,7 +6,9 @@ import 'package:shaped_bottom_bar/utils/shapes.dart';
 import 'package:shaped_bottom_bar/widgets/circle_shape.dart';
 import 'package:shaped_bottom_bar/widgets/custom_shape_widget.dart';
 import 'package:shaped_bottom_bar/widgets/hexagon_shape.dart';
+import 'package:shaped_bottom_bar/widgets/octagon_shape.dart';
 import 'package:shaped_bottom_bar/widgets/pentagon_shape.dart';
+import 'package:shaped_bottom_bar/widgets/rhombus_shape.dart';
 import 'package:shaped_bottom_bar/widgets/rotated_hexagon.dart';
 import 'package:shaped_bottom_bar/widgets/royal_shape.dart';
 import 'package:shaped_bottom_bar/widgets/shaped_bottom_bar_item.dart';
@@ -224,6 +226,20 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         break;
       case ShapeType.STAR:
         shapedWidget = StarShape(
+          child: baseWidget,
+          background: widget.shapeColor!,
+          size: this.widget.height,
+        );
+        break;
+      case ShapeType.RHOMBUS:
+        shapedWidget = RhombusShape(
+          child: baseWidget,
+          background: widget.shapeColor!,
+          size: this.widget.height,
+        );
+        break;
+      case ShapeType.OCATGON:
+        shapedWidget = OctagonShape(
           child: baseWidget,
           background: widget.shapeColor!,
           size: this.widget.height,

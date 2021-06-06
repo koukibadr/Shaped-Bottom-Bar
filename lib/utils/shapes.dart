@@ -8,5 +8,7 @@ enum ShapeType {
   ROYAL_SHAPE,
   PENTAGON,
   STAR,
+  RHOMBUS,
+  OCATGON,
   CUSTOM
 }
