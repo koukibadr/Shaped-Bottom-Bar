@@ -28,7 +28,7 @@ Choose your shape (circle, square, hexagon...) and let us do the work.
 Add this line to pubspec
 
     dependencies:
-	    shaped_bottom_bar: ^0.0.1
+	    shaped_bottom_bar: ^0.0.2
 
 
 ## Widgets
