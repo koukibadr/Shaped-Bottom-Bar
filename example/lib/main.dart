@@ -55,15 +55,9 @@ class _MyScreenState extends State<MyScreen> {
               this.selectedItem = position;
             });
           },
-          textStyle: TextStyle(
-            color: Colors.red,
-            fontSize: 15
-          ),
-          shape: ShapeType.CUSTOM,
-          customShape: CustomPaint(
-            painter: MyShape(),
-            size: Size(50, 50),
-          )),
+          textStyle: TextStyle(color: Colors.black, fontSize: 15),
+          shape: ShapeType.STAR,
+          shapeColor: Colors.red),
       body: Container(),
     );
   }
