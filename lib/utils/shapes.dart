@@ -6,5 +6,7 @@ enum ShapeType {
   TRIANGLE,
   ROTATED_HEXAGON,
   ROYAL_SHAPE,
+  PENTAGON,
+  STAR,
   CUSTOM
 }
