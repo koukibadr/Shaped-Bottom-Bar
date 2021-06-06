@@ -59,11 +59,8 @@ class _MyScreenState extends State<MyScreen> {
             color: Colors.red,
             fontSize: 15
           ),
-          shape: ShapeType.CUSTOM,
-          customShape: CustomPaint(
-            painter: MyShape(),
-            size: Size(50, 50),
-          )),
+          shape: ShapeType.STAR,
+          shapeColor: Colors.red),
       body: Container(),
     );
   }
