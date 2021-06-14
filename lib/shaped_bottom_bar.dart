@@ -1,8 +1,10 @@
 library shaped_bottom_bar;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/models/shaped_item_object.dart';
-import 'package:shaped_bottom_bar/utils/shapes.dart';
+import 'package:shaped_bottom_bar/utils/arrays.dart';
 import 'package:shaped_bottom_bar/widgets/circle_shape.dart';
 import 'package:shaped_bottom_bar/widgets/custom_shape_widget.dart';
 import 'package:shaped_bottom_bar/widgets/diamond_shape.dart';
@@ -52,6 +54,11 @@ class ShapedBottomBar extends StatefulWidget {
   ///
   final CustomPaint? customShape;
 
+
+  ///aimation that will be set when navigating between navigation bar items
+  ///
+  final ANIMATION_TYPE animationType;
+
   ShapedBottomBar(
       {required this.onItemChanged,
       required this.listItems,
@@ -67,7 +74,8 @@ class ShapedBottomBar extends StatefulWidget {
       this.selectedIconColor = Colors.white,
       this.bottomBarTopColor = Colors.white,
       this.backgroundColor = Colors.blue,
-      this.customShape}) {
+      this.customShape,
+      this.animationType = ANIMATION_TYPE.NONE}) {
     if (this.withRoundCorners) {
       assert(this.cornerRadius != null);
     }
@@ -90,6 +98,8 @@ class ShapedBottomBar extends StatefulWidget {
 class _ShapedBottomBarState extends State<ShapedBottomBar> {
   late int selectedIndex;
   late List<Widget> bottomBarWidgets;
+
+  double opacity = 1;
 
   @override
   void initState() {
@@ -164,11 +174,30 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
   ///
   /// has no return value
   void onItemSelected(int position) {
-    this.widget.onItemChanged(position);
-    setState(() {
-      this.selectedIndex = position;
-      generateListOfWidgets();
-    });
+    switch (this.widget.animationType) {
+      case ANIMATION_TYPE.FADE:
+        setState(() {
+          this.opacity = 0;
+        });
+        Timer(Duration(milliseconds: 200), () {
+          this.widget.onItemChanged(position);
+          setState(() {
+            this.selectedIndex = position;
+            generateListOfWidgets();
+          });
+          Timer(Duration(milliseconds: 200), () {
+            setState(() {
+              this.opacity = 1;
+            });
+          });
+        });
+        break;
+      default:
+        setState(() {
+          this.selectedIndex = position;
+          generateListOfWidgets();
+        });
+    }
   }
 
   ///render the selected widget
@@ -201,8 +230,12 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         );
         break;
       case ShapeType.HEXAGONE:
-        shapedWidget =
-            HexagonShape(child: baseWidget, background: widget.shapeColor);
+        shapedWidget = HexagonShape(
+          child: baseWidget,
+          background: widget.shapeColor,
+          animationType: this.widget.animationType,
+          opacity: this.opacity,
+        );
         break;
       case ShapeType.ROTATED_HEXAGON:
         shapedWidget = RotatedHexagon(

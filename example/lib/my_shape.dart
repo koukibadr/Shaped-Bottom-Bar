@@ -8,7 +8,7 @@ class MyShape extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint_0 = new Paint()
-      ..color = this.background ?? Colors.black
+      ..color = this.background
       ..style = PaintingStyle.fill;
 
     Path path_0 = renderHexagon(size);

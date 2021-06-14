@@ -13,3 +13,8 @@ enum ShapeType {
   DIAMOND,
   CUSTOM
 }
+
+enum ANIMATION_TYPE {
+  NONE,
+  FADE
+}
