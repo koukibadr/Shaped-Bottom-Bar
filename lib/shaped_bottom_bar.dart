@@ -19,6 +19,8 @@ import 'package:shaped_bottom_bar/widgets/square.dart';
 import 'package:shaped_bottom_bar/widgets/star_shape.dart';
 import 'package:shaped_bottom_bar/widgets/triangle_shape.dart';
 
+import 'widgets/animated_shape.dart';
+
 ///The size of the bottom bar: default 70
 const double SHAPED_BOTTOM_BAR_SIZE = 70;
 
@@ -53,7 +55,6 @@ class ShapedBottomBar extends StatefulWidget {
   ///with a given CustomPaint object and set [shape] to [ShapeType.CUSTOM]
   ///
   final CustomPaint? customShape;
-
 
   ///aimation that will be set when navigating between navigation bar items
   ///
@@ -211,89 +212,138 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
     Widget shapedWidget;
     switch (widget.shape) {
       case ShapeType.CIRCLE:
-        shapedWidget = CircleShape(
-            child: baseWidget,
-            background: widget.shapeColor,
-            size: this.widget.height);
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: CircleShape(
+              child: baseWidget,
+              background: widget.shapeColor,
+              size: this.widget.height),
+        );
         break;
       case ShapeType.SQUARE:
-        shapedWidget = SquareShape(
-            child: baseWidget,
-            background: widget.shapeColor,
-            size: this.widget.height);
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: SquareShape(
+              child: baseWidget,
+              background: widget.shapeColor,
+              size: this.widget.height),
+        );
         break;
       case ShapeType.TRIANGLE:
-        shapedWidget = TriangleShape(
-          child: baseWidget,
-          background: widget.shapeColor,
-          size: this.widget.height,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: TriangleShape(
+            child: baseWidget,
+            background: widget.shapeColor,
+            size: this.widget.height,
+          ),
         );
         break;
       case ShapeType.HEXAGONE:
-        shapedWidget = HexagonShape(
-          child: baseWidget,
-          background: widget.shapeColor,
+        shapedWidget = AnimatedShape(
           animationType: this.widget.animationType,
-          opacity: this.opacity,
+          animationValue: this.opacity,
+          shape: HexagonShape(
+            child: baseWidget,
+            background: widget.shapeColor,
+          ),
         );
         break;
       case ShapeType.ROTATED_HEXAGON:
-        shapedWidget = RotatedHexagon(
-          child: baseWidget,
-          background: widget.shapeColor,
-          size: this.widget.height,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: RotatedHexagon(
+            child: baseWidget,
+            background: widget.shapeColor,
+            size: this.widget.height,
+          ),
         );
         break;
       case ShapeType.ROYAL_SHAPE:
-        shapedWidget = RoyalShape(
-          child: baseWidget,
-          background: widget.shapeColor,
-          size: this.widget.height,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: RoyalShape(
+            child: baseWidget,
+            background: widget.shapeColor,
+            size: this.widget.height,
+          ),
         );
         break;
       case ShapeType.PENTAGON:
-        shapedWidget = PentagonShape(
-          child: baseWidget,
-          background: widget.shapeColor!,
-          size: this.widget.height,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: PentagonShape(
+            child: baseWidget,
+            background: widget.shapeColor!,
+            size: this.widget.height,
+          ),
         );
         break;
       case ShapeType.STAR:
-        shapedWidget = StarShape(
-          child: baseWidget,
-          background: widget.shapeColor!,
-          size: this.widget.height,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: StarShape(
+            child: baseWidget,
+            background: widget.shapeColor!,
+            size: this.widget.height,
+          ),
         );
         break;
       case ShapeType.RHOMBUS:
-        shapedWidget = RhombusShape(
-          child: baseWidget,
-          background: widget.shapeColor!,
-          size: this.widget.height,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: RhombusShape(
+            child: baseWidget,
+            background: widget.shapeColor!,
+            size: this.widget.height,
+          ),
         );
         break;
       case ShapeType.OCATGON:
-        shapedWidget = OctagonShape(
-          child: baseWidget,
-          background: widget.shapeColor!,
-          size: this.widget.height,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: OctagonShape(
+            child: baseWidget,
+            background: widget.shapeColor!,
+            size: this.widget.height,
+          ),
         );
         break;
       case ShapeType.DIAMOND:
-        shapedWidget = DiamondShape(
-          child: baseWidget,
-          background: widget.shapeColor!,
-          size: this.widget.height,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: DiamondShape(
+            child: baseWidget,
+            background: widget.shapeColor!,
+            size: this.widget.height,
+          ),
         );
         break;
       case ShapeType.CUSTOM:
-        shapedWidget = CustomShapeWidget(
-          child: baseWidget,
-          shape: this.widget.customShape!,
+        shapedWidget = AnimatedShape(
+          animationType: this.widget.animationType,
+          animationValue: this.opacity,
+          shape: CustomShapeWidget(
+            child: baseWidget,
+            shape: this.widget.customShape!,
+          ),
         );
         break;
       default:
-        shapedWidget = baseWidget;
+        shapedWidget = AnimatedShape(
+            animationType: this.widget.animationType,
+            animationValue: this.opacity,
+            shape: baseWidget);
         break;
     }
     return Stack(
