@@ -243,13 +243,11 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         );
         break;
       case ShapeType.HEXAGONE:
-        shapedWidget = AnimatedShape(
+        shapedWidget = HexagonShape(
+          child: baseWidget,
+          background: widget.shapeColor,
           animationType: this.widget.animationType,
           animationValue: this.opacity,
-          shape: HexagonShape(
-            child: baseWidget,
-            background: widget.shapeColor,
-          ),
         );
         break;
       case ShapeType.ROTATED_HEXAGON:

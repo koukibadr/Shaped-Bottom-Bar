@@ -12,15 +12,15 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 2),
+    duration: const Duration(milliseconds: 700),
     vsync: this,
   );
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
-    end: const Offset(1.5, 0.0),
+    end: const Offset(0, 1.5),
   ).animate(CurvedAnimation(
     parent: _controller,
-    curve: Curves.elasticIn,
+    curve: Curves.ease,
   ));
 
   @override

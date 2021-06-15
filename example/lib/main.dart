@@ -56,12 +56,12 @@ class _MyScreenState extends State<MyScreen> {
             this.selectedItem = position;
           });
         },
-        shape: ShapeType.DIAMOND,
+        shape: ShapeType.HEXAGONE,
         shapeColor: Color(0xffFFD700),
         selectedIconColor: Colors.white,
         animationType: ANIMATION_TYPE.FADE,
       ),
-      body: Container(),
+      body: MyStatefulWidget(),
     );
   }
 }
