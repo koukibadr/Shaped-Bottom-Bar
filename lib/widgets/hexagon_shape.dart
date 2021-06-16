@@ -13,15 +13,11 @@ class HexagonShape extends StatelessWidget {
   final double size;
   final Color? background;
   final Widget child;
-  final ANIMATION_TYPE animationType;
-  final double animationValue;
 
   HexagonShape(
       {required this.child,
       this.background = Colors.white,
-      this.size = 50,
-      this.animationType = ANIMATION_TYPE.NONE,
-      this.animationValue = 1});
+      this.size = 50});
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +25,10 @@ class HexagonShape extends StatelessWidget {
   }
 
   Widget renderShape() {
-    return Stack(
-      children: [
-        AnimatedShape(
-          animationType: this.animationType,
-          animationValue: this.animationValue,
-          shape: CustomPaint(
-            size: Size(100, 100),
-            painter: DrawHexagon(background: this.background),
-          ),
-        ),
-        this.child,
-      ],
+    return CustomPaint(
+      size: Size(this.size, this.size),
+      painter: DrawHexagon(background: this.background),
+      child: this.child,
     );
   }
 }

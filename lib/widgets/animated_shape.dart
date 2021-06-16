@@ -5,11 +5,13 @@ class AnimatedShape extends StatelessWidget {
   final Widget shape;
   final ANIMATION_TYPE animationType;
   final double animationValue;
+  final Animation<Offset>? animationOffset;
 
   AnimatedShape(
       {required this.shape,
       this.animationType = ANIMATION_TYPE.NONE,
-      this.animationValue = 1});
+      this.animationValue = 1,
+      this.animationOffset});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,12 @@ class AnimatedShape extends StatelessWidget {
         return AnimatedOpacity(
           duration: Duration(milliseconds: 500),
           opacity: this.animationValue,
-          child: Container(
-            child: this.shape,
-          ),
+          child: this.shape,
+        );
+      case ANIMATION_TYPE.SLIDE_VERTICALLY:
+        return SlideTransition(
+          position: animationOffset!,
+          child: this.shape,
         );
       default:
         return this.shape;

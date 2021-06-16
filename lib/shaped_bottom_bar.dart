@@ -96,16 +96,30 @@ class ShapedBottomBar extends StatefulWidget {
   _ShapedBottomBarState createState() => _ShapedBottomBarState();
 }
 
-class _ShapedBottomBarState extends State<ShapedBottomBar> {
+class _ShapedBottomBarState extends State<ShapedBottomBar>
+    with SingleTickerProviderStateMixin {
   late int selectedIndex;
   late List<Widget> bottomBarWidgets;
 
   double opacity = 1;
 
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
+  late Animation<Offset> _offsetAnimation;
+
   @override
   void initState() {
     super.initState();
     this.selectedIndex = this.widget.selectedItemIndex;
+    _offsetAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(0, 1.5),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.ease,
+    ));
     generateListOfWidgets();
   }
 
@@ -193,6 +207,17 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
           });
         });
         break;
+      case ANIMATION_TYPE.SLIDE_VERTICALLY:
+        _controller.animateTo(1.5);
+        Timer(Duration(milliseconds: 200), () {
+          this.widget.onItemChanged(position);
+          setState(() {
+            this.selectedIndex = position;
+            generateListOfWidgets();
+          });
+          _controller.animateTo(0);
+        });
+        break;
       default:
         setState(() {
           this.selectedIndex = position;
@@ -243,11 +268,14 @@ class _ShapedBottomBarState extends State<ShapedBottomBar> {
         );
         break;
       case ShapeType.HEXAGONE:
-        shapedWidget = HexagonShape(
-          child: baseWidget,
-          background: widget.shapeColor,
+        shapedWidget = AnimatedShape(
           animationType: this.widget.animationType,
           animationValue: this.opacity,
+          animationOffset: _offsetAnimation,
+          shape: HexagonShape(
+            child: baseWidget,
+            background: widget.shapeColor
+          ),
         );
         break;
       case ShapeType.ROTATED_HEXAGON:
