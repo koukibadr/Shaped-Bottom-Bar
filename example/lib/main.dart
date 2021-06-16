@@ -59,7 +59,7 @@ class _MyScreenState extends State<MyScreen> {
         shape: ShapeType.HEXAGONE,
         shapeColor: Color(0xffFFD700),
         selectedIconColor: Colors.white,
-        animationType: ANIMATION_TYPE.FADE,
+        animationType: ANIMATION_TYPE.SLIDE_VERTICALLY,
       ),
       body: MyStatefulWidget(),
     );
