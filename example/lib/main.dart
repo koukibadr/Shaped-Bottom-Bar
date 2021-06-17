@@ -1,10 +1,7 @@
-import 'package:example/my_shape.dart';
 import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/models/shaped_item_object.dart';
 import 'package:shaped_bottom_bar/utils/arrays.dart';
 import 'package:shaped_bottom_bar/shaped_bottom_bar.dart';
-
-import 'animation_example.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,12 +53,12 @@ class _MyScreenState extends State<MyScreen> {
             this.selectedItem = position;
           });
         },
-        shape: ShapeType.HEXAGONE,
+        shape: ShapeType.PENTAGON,
         shapeColor: Color(0xffFFD700),
         selectedIconColor: Colors.white,
         animationType: ANIMATION_TYPE.SLIDE_VERTICALLY,
       ),
-      body: MyStatefulWidget(),
+      body: Container(),
     );
   }
 }

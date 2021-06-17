@@ -17,5 +17,6 @@ enum ShapeType {
 enum ANIMATION_TYPE {
   NONE,
   FADE,
-  SLIDE_VERTICALLY
+  SLIDE_VERTICALLY,
+  ROTATE
 }

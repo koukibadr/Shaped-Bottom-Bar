@@ -97,29 +97,37 @@ class ShapedBottomBar extends StatefulWidget {
 }
 
 class _ShapedBottomBarState extends State<ShapedBottomBar>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late int selectedIndex;
   late List<Widget> bottomBarWidgets;
 
   double opacity = 1;
 
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 500),
-    vsync: this,
-  );
-  late Animation<Offset> _offsetAnimation;
+  late AnimationController? slideController;
+
+  late Animation<Offset>? _offsetAnimation;
+  late AnimationController? rotateController;
 
   @override
   void initState() {
     super.initState();
     this.selectedIndex = this.widget.selectedItemIndex;
+
+    slideController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
     _offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, 1.5),
     ).animate(CurvedAnimation(
-      parent: _controller,
+      parent: slideController!,
       curve: Curves.ease,
     ));
+
+    rotateController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+
     generateListOfWidgets();
   }
 
@@ -208,14 +216,25 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
         });
         break;
       case ANIMATION_TYPE.SLIDE_VERTICALLY:
-        _controller.animateTo(1.5);
+        slideController!.animateTo(1.5);
         Timer(Duration(milliseconds: 200), () {
           this.widget.onItemChanged(position);
           setState(() {
             this.selectedIndex = position;
             generateListOfWidgets();
           });
-          _controller.animateTo(0);
+          slideController!.animateTo(0);
+        });
+        break;
+      case ANIMATION_TYPE.ROTATE:
+        this.widget.onItemChanged(position);
+        setState(() {
+          this.selectedIndex = position;
+          generateListOfWidgets();
+        });
+        rotateController!.forward();
+        Timer(Duration(milliseconds: 300), () {
+          rotateController!.reset();
         });
         break;
       default:
@@ -237,139 +256,85 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
     Widget shapedWidget;
     switch (widget.shape) {
       case ShapeType.CIRCLE:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: CircleShape(
-              child: baseWidget,
-              background: widget.shapeColor,
-              size: this.widget.height),
-        );
-        break;
-      case ShapeType.SQUARE:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: SquareShape(
-              child: baseWidget,
-              background: widget.shapeColor,
-              size: this.widget.height),
-        );
-        break;
-      case ShapeType.TRIANGLE:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: TriangleShape(
+        shapedWidget = CircleShape(
             child: baseWidget,
             background: widget.shapeColor,
-            size: this.widget.height,
-          ),
+            size: this.widget.height);
+        break;
+      case ShapeType.SQUARE:
+        shapedWidget = SquareShape(
+            child: baseWidget,
+            background: widget.shapeColor,
+            size: this.widget.height);
+        break;
+      case ShapeType.TRIANGLE:
+        shapedWidget = TriangleShape(
+          child: baseWidget,
+          background: widget.shapeColor,
+          size: this.widget.height,
         );
         break;
       case ShapeType.HEXAGONE:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          animationOffset: _offsetAnimation,
-          shape: HexagonShape(
-            child: baseWidget,
-            background: widget.shapeColor
-          ),
-        );
+        shapedWidget =
+            HexagonShape(child: baseWidget, background: widget.shapeColor);
         break;
       case ShapeType.ROTATED_HEXAGON:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: RotatedHexagon(
-            child: baseWidget,
-            background: widget.shapeColor,
-            size: this.widget.height,
-          ),
+        shapedWidget = RotatedHexagon(
+          child: baseWidget,
+          background: widget.shapeColor,
+          size: this.widget.height,
         );
         break;
       case ShapeType.ROYAL_SHAPE:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: RoyalShape(
-            child: baseWidget,
-            background: widget.shapeColor,
-            size: this.widget.height,
-          ),
+        shapedWidget = RoyalShape(
+          child: baseWidget,
+          background: widget.shapeColor,
+          size: this.widget.height,
         );
         break;
       case ShapeType.PENTAGON:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: PentagonShape(
-            child: baseWidget,
-            background: widget.shapeColor!,
-            size: this.widget.height,
-          ),
+        shapedWidget = PentagonShape(
+          child: baseWidget,
+          background: widget.shapeColor!,
+          size: this.widget.height,
         );
         break;
       case ShapeType.STAR:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: StarShape(
-            child: baseWidget,
-            background: widget.shapeColor!,
-            size: this.widget.height,
-          ),
+        shapedWidget = StarShape(
+          child: baseWidget,
+          background: widget.shapeColor!,
+          size: this.widget.height,
         );
         break;
       case ShapeType.RHOMBUS:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: RhombusShape(
-            child: baseWidget,
-            background: widget.shapeColor!,
-            size: this.widget.height,
-          ),
+        shapedWidget = RhombusShape(
+          child: baseWidget,
+          background: widget.shapeColor!,
+          size: this.widget.height,
         );
         break;
       case ShapeType.OCATGON:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: OctagonShape(
-            child: baseWidget,
-            background: widget.shapeColor!,
-            size: this.widget.height,
-          ),
+        shapedWidget = OctagonShape(
+          child: baseWidget,
+          background: widget.shapeColor!,
+          size: this.widget.height,
         );
         break;
       case ShapeType.DIAMOND:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: DiamondShape(
-            child: baseWidget,
-            background: widget.shapeColor!,
-            size: this.widget.height,
-          ),
+        shapedWidget = DiamondShape(
+          child: baseWidget,
+          background: widget.shapeColor!,
+          size: this.widget.height,
         );
         break;
       case ShapeType.CUSTOM:
-        shapedWidget = AnimatedShape(
-          animationType: this.widget.animationType,
-          animationValue: this.opacity,
-          shape: CustomShapeWidget(
-            child: baseWidget,
-            shape: this.widget.customShape!,
-          ),
+        shapedWidget = CustomShapeWidget(
+          child: baseWidget,
+          shape: this.widget.customShape!,
         );
         break;
       default:
-        shapedWidget = AnimatedShape(
-            animationType: this.widget.animationType,
-            animationValue: this.opacity,
-            shape: baseWidget);
+        shapedWidget = baseWidget;
         break;
     }
     return Stack(
@@ -381,7 +346,12 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
             color: widget.backgroundColor,
           ),
         ),
-        shapedWidget,
+        AnimatedShape(
+            animationType: this.widget.animationType,
+            animationValue: this.opacity,
+            animationOffset: _offsetAnimation,
+            animationController: this.rotateController,
+            shape: shapedWidget)
       ],
     );
   }
