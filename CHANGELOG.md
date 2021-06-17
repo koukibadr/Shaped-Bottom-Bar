@@ -1,3 +1,11 @@
+## [1.0.0] - 17-06-2021.
+
+* Add built-in animations support
+    - Fade In / Out
+    - Slide transition
+    - Rotation animation
+* Fix bugs
+
 ## [0.0.2] - 06-06-2021.
 
 * Add more built-in shapes

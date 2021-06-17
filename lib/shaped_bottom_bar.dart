@@ -32,34 +32,6 @@ const double SHAPED_BOTTOM_BAR_SIZE = 70;
 ///By default the bottom bar will be rendered without shape.
 ///to set a shape use [shape] type of [ShapeType] enum contain 6 different shapes.
 class ShapedBottomBar extends StatefulWidget {
-  final List<ShapedItemObject> listItems;
-  final Function(int) onItemChanged;
-
-  final double height;
-  final double? width;
-
-  final bool withRoundCorners;
-  final BorderRadius? cornerRadius;
-  final ShapeType shape;
-  final int selectedItemIndex;
-
-  //Colors
-  final Color shapeColor;
-  final Color backgroundColor;
-  final Color iconsColor;
-  final Color selectedIconColor;
-  final TextStyle textStyle;
-  final Color bottomBarTopColor;
-
-  ///used to implement shaped bottom bar with custom shape
-  ///with a given CustomPaint object and set [shape] to [ShapeType.CUSTOM]
-  ///
-  final CustomPaint? customShape;
-
-  ///aimation that will be set when navigating between navigation bar items
-  ///
-  final ANIMATION_TYPE animationType;
-
   ShapedBottomBar(
       {required this.onItemChanged,
       required this.listItems,
@@ -91,6 +63,43 @@ class ShapedBottomBar extends StatefulWidget {
 
     assert(this.listItems.isNotEmpty);
   }
+
+  final List<ShapedItemObject> listItems;
+  final Function(int) onItemChanged;
+
+  final double height;
+  final double? width;
+
+  final bool withRoundCorners;
+  final BorderRadius? cornerRadius;
+  final ShapeType shape;
+  final int selectedItemIndex;
+
+  //Colors
+  final Color shapeColor;
+  final Color backgroundColor;
+  final Color iconsColor;
+  final Color selectedIconColor;
+  final TextStyle textStyle;
+  final Color bottomBarTopColor;
+
+  ///used to implement shaped bottom bar with custom shape
+  ///with a given CustomPaint object and set [shape] to [ShapeType.CUSTOM]
+  ///
+  final CustomPaint? customShape;
+
+  ///aimation that will be set when navigating between navigation bar items
+  ///possible values
+  ///```dart
+  ///[
+  /// NONE,
+  /// FADE,
+  /// SLIDE_VERTICALLY,
+  /// ROTATE
+  ///]
+  ///```
+  ///
+  final ANIMATION_TYPE animationType;
 
   @override
   _ShapedBottomBarState createState() => _ShapedBottomBarState();
@@ -190,9 +199,9 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   }
 
   ///updates the current selected item index to a new index
-  ///
-  ///triggered on tapping on any unselected widget,
+  ///triggered on tapping on any unselected widget, play the selected animation transition
   ///and trigger the [onItemChanged] function passed as parameter the the main widget
+  ///
   ///[position]: the position of the new selected item
   ///
   /// has no return value
@@ -248,6 +257,8 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   ///render the selected widget
   ///based on the parameter [shape] it render the apporpriate shape
   ///if shape equals to [ShapeType.NONE] the selected item will be just a colored icon with the color is [selectedIconColor]
+  ///
+  ///the widget result will be wraped with [AnimatedShape] widget with the selected animation [widget.animationType]
   ///
   ///[baseWidget] : the selected widget that will be wrapped  with a shape.
   ///

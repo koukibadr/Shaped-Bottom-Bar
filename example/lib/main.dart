@@ -39,8 +39,8 @@ class _MyScreenState extends State<MyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: ShapedBottomBar(
-        backgroundColor: Colors.black,
-        iconsColor: Colors.white,
+        backgroundColor: Colors.black12,
+        iconsColor: Colors.black,
         listItems: [
           ShapedItemObject(iconData: Icons.alarm, title: "Alarm"),
           ShapedItemObject(iconData: Icons.menu_book, title: "Menu"),
@@ -53,10 +53,10 @@ class _MyScreenState extends State<MyScreen> {
             this.selectedItem = position;
           });
         },
-        shape: ShapeType.HEXAGONE,
-        shapeColor: Color(0xffFFD700),
+        shape: ShapeType.OCATGON,
+        shapeColor: Colors.black,
         selectedIconColor: Colors.white,
-        animationType: ANIMATION_TYPE.SLIDE_VERTICALLY,
+        animationType: ANIMATION_TYPE.ROTATE,
       ),
       body: Container(),
     );
