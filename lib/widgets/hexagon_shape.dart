@@ -11,7 +11,7 @@ import 'package:shaped_bottom_bar/widgets/animated_shape.dart';
 /// [size] : optional parameter by default it's 50
 class HexagonShape extends StatelessWidget {
   final double size;
-  final Color? background;
+  final Color background;
   final Widget child;
 
   HexagonShape(

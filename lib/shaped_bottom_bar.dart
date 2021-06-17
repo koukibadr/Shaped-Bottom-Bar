@@ -44,7 +44,7 @@ class ShapedBottomBar extends StatefulWidget {
   final int selectedItemIndex;
 
   //Colors
-  final Color? shapeColor;
+  final Color shapeColor;
   final Color backgroundColor;
   final Color iconsColor;
   final Color selectedIconColor;
@@ -69,7 +69,7 @@ class ShapedBottomBar extends StatefulWidget {
       this.cornerRadius,
       this.shape = ShapeType.NONE,
       this.selectedItemIndex = 0,
-      this.shapeColor,
+      this.shapeColor = Colors.blue,
       this.iconsColor = Colors.black,
       this.textStyle = const TextStyle(color: Colors.black),
       this.selectedIconColor = Colors.white,
@@ -295,35 +295,35 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
       case ShapeType.PENTAGON:
         shapedWidget = PentagonShape(
           child: baseWidget,
-          background: widget.shapeColor!,
+          background: widget.shapeColor,
           size: this.widget.height,
         );
         break;
       case ShapeType.STAR:
         shapedWidget = StarShape(
           child: baseWidget,
-          background: widget.shapeColor!,
+          background: widget.shapeColor,
           size: this.widget.height,
         );
         break;
       case ShapeType.RHOMBUS:
         shapedWidget = RhombusShape(
           child: baseWidget,
-          background: widget.shapeColor!,
+          background: widget.shapeColor,
           size: this.widget.height,
         );
         break;
       case ShapeType.OCATGON:
         shapedWidget = OctagonShape(
           child: baseWidget,
-          background: widget.shapeColor!,
+          background: widget.shapeColor,
           size: this.widget.height,
         );
         break;
       case ShapeType.DIAMOND:
         shapedWidget = DiamondShape(
           child: baseWidget,
-          background: widget.shapeColor!,
+          background: widget.shapeColor,
           size: this.widget.height,
         );
         break;
