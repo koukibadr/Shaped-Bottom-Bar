@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/utils/extensions.dart';
 
-
 ///Creates a custom shape by a given [CustomPaint] object and set a child to it
 ///
 class CustomShapeWidget extends StatelessWidget {

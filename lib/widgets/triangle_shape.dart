@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/paint/draw_triangle_shape.dart';
 
-
 ///genreates a triangle shape widget with the given [child] in the center of the triangle
 ///[child] is a required parameter
 ///
@@ -21,9 +20,7 @@ class TriangleShape extends StatelessWidget {
     return Container(
       child: CustomPaint(
         size: Size(this.size, this.size),
-        painter: DrawTriangleShape(
-          backgroundColor: this.background!
-        ),
+        painter: DrawTriangleShape(backgroundColor: this.background!),
         child: this.child,
       ),
     );

@@ -12,11 +12,8 @@ class OctagonShape extends StatelessWidget {
   final Color background;
   final Widget child;
 
-  OctagonShape({
-    required this.child,
-    this.background = Colors.white,
-    this.size = 50
-  });
+  OctagonShape(
+      {required this.child, this.background = Colors.white, this.size = 50});
 
   @override
   Widget build(BuildContext context) {

@@ -15,9 +15,7 @@ class HexagonShape extends StatelessWidget {
   final Widget child;
 
   HexagonShape(
-      {required this.child,
-      this.background = Colors.white,
-      this.size = 50});
+      {required this.child, this.background = Colors.white, this.size = 50});
 
   @override
   Widget build(BuildContext context) {

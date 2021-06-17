@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/paint/draw_royal_shape.dart';
 
-
 ///genreates a Royal shape widget with the given [child] in the center of the Royal shape
 ///[child] is a required parameter
 ///

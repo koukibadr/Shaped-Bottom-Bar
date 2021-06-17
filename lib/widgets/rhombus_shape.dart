@@ -12,11 +12,8 @@ class RhombusShape extends StatelessWidget {
   final Color background;
   final Widget child;
 
-  RhombusShape({
-    required this.child,
-    this.background = Colors.white,
-    this.size = 50
-  });
+  RhombusShape(
+      {required this.child, this.background = Colors.white, this.size = 50});
 
   @override
   Widget build(BuildContext context) {

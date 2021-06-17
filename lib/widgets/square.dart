@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 ///genreates a Square shape widget with the given [child] in the center of the Square
 ///[child] is a required parameter
 ///

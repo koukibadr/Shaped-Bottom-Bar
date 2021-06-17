@@ -1,6 +1,6 @@
 name: shaped_bottom_bar
-description: Custom Flutter bottom bar navigation with multiple shapes
-version: 0.0.2
+description: Fully customizable bottom navigation bar with multiple built-in shapes and support custom shapes also with built-in transition animations
+version: 1.0.0
 homepage: https://github.com/koukibadr/Shaped-Bottom-Bar
 
 environment:

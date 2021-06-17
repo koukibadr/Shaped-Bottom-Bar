@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shaped_bottom_bar/paint/draw_hexagon_rotated.dart';
 
-
 ///genreates a Hexagon shape widget with the given [child] in the center of the hexagon
 ///[child] is a required parameter
 ///
