@@ -48,7 +48,8 @@ class ShapedBottomBar extends StatefulWidget {
       this.bottomBarTopColor = Colors.white,
       this.backgroundColor = Colors.blue,
       this.customShape,
-      this.animationType = ANIMATION_TYPE.NONE}) {
+      this.animationType = ANIMATION_TYPE.NONE,
+      this.with3dEffect = false}) {
     if (this.withRoundCorners) {
       assert(this.cornerRadius != null);
     }
@@ -100,6 +101,11 @@ class ShapedBottomBar extends StatefulWidget {
   ///```
   ///
   final ANIMATION_TYPE animationType;
+
+  ///Whether the selected shape will be rendered with 3D effects
+  ///by default it's false
+  ///
+  final bool with3dEffect;
 
   @override
   _ShapedBottomBarState createState() => _ShapedBottomBarState();
@@ -283,6 +289,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           child: baseWidget,
           background: widget.shapeColor,
           size: this.widget.height,
+          render3dEffect: this.widget.with3dEffect,
         );
         break;
       case ShapeType.HEXAGONE:
