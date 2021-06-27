@@ -319,6 +319,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           child: baseWidget,
           background: widget.shapeColor,
           size: this.widget.height,
+          with3DEffect: this.widget.with3dEffect,
         );
         break;
       case ShapeType.STAR:

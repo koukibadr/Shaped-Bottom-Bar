@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shaped_bottom_bar/paint/3d_shapes/draw_3d_pentagon.dart';
 import 'package:shaped_bottom_bar/paint/draw_pentagon.dart';
 
 ///genreates a Pentagon shape widget with the given [child] in the center of the Pentagon
@@ -11,16 +12,22 @@ class PentagonShape extends StatelessWidget {
   final double size;
   final Color background;
   final Widget child;
+  final bool with3DEffect;
 
   PentagonShape(
-      {required this.child, this.background = Colors.white, this.size = 50});
+      {required this.child,
+      this.background = Colors.white,
+      this.size = 50,
+      this.with3DEffect = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: CustomPaint(
         size: Size(this.size, this.size),
-        painter: DrawPentagon(backgroundColor: this.background),
+        painter: this.with3DEffect
+            ? Draw3DPentagon(backgroundColor: this.background)
+            : DrawPentagon(backgroundColor: this.background),
         child: this.child,
       ),
     );

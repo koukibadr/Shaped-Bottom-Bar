@@ -53,7 +53,7 @@ class _MyScreenState extends State<MyScreen> {
             this.selectedItem = position;
           });
         },
-        shape: ShapeType.ROTATED_HEXAGON,
+        shape: ShapeType.PENTAGON,
         shapeColor: Colors.pink,
         with3dEffect: true,
         selectedIconColor: Colors.white,
