@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shaped_bottom_bar/paint/3d_shapes/draw_3d_hexagon.dart';
 import 'package:shaped_bottom_bar/paint/draw_hexagon.dart';
-import 'package:shaped_bottom_bar/utils/arrays.dart';
-import 'package:shaped_bottom_bar/widgets/animated_shape.dart';
 
 ///genreates a Hexagon shape widget with the given [child] in the center of the hexagon
 ///[child] is a required parameter
@@ -13,9 +12,13 @@ class HexagonShape extends StatelessWidget {
   final double size;
   final Color background;
   final Widget child;
+  final bool with3DEffect;
 
   HexagonShape(
-      {required this.child, this.background = Colors.white, this.size = 50});
+      {required this.child,
+      this.background = Colors.white,
+      this.size = 50,
+      this.with3DEffect = false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,9 @@ class HexagonShape extends StatelessWidget {
   Widget renderShape() {
     return CustomPaint(
       size: Size(this.size, this.size),
-      painter: DrawHexagon(background: this.background),
+      painter: this.with3DEffect
+          ? Draw3DHexagonShape(backgroundColor: this.background)
+          : DrawHexagon(background: this.background),
       child: this.child,
     );
   }
