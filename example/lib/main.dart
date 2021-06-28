@@ -53,11 +53,11 @@ class _MyScreenState extends State<MyScreen> {
             this.selectedItem = position;
           });
         },
-        shape: ShapeType.PENTAGON,
+        shape: ShapeType.SQUARE,
         shapeColor: Colors.pink,
-        with3dEffect: true,
         selectedIconColor: Colors.white,
-        animationType: ANIMATION_TYPE.SLIDE_VERTICALLY,
+        with3dEffect: true,
+        animationType: ANIMATION_TYPE.FADE,
       ),
       body: Container(),
     );

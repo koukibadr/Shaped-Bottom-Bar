@@ -334,6 +334,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           child: baseWidget,
           background: widget.shapeColor,
           size: this.widget.height,
+          with3DEffect: this.widget.with3dEffect,
         );
         break;
       case ShapeType.OCATGON:
@@ -341,6 +342,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           child: baseWidget,
           background: widget.shapeColor,
           size: this.widget.height,
+          with3DEffect: this.widget.with3dEffect,
         );
         break;
       case ShapeType.DIAMOND:
@@ -348,6 +350,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           child: baseWidget,
           background: widget.shapeColor,
           size: this.widget.height,
+          with3DEffect: this.widget.with3dEffect,
         );
         break;
       case ShapeType.CUSTOM:

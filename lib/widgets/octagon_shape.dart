@@ -11,16 +11,21 @@ class OctagonShape extends StatelessWidget {
   final double size;
   final Color background;
   final Widget child;
+  final bool with3DEffect;
 
   OctagonShape(
-      {required this.child, this.background = Colors.white, this.size = 50});
+      {required this.child,
+      this.background = Colors.white,
+      this.size = 50,
+      this.with3DEffect = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: CustomPaint(
         size: Size(this.size, this.size),
-        painter: DrawOctagon(backgroundColor: this.background),
+        painter: DrawOctagon(
+            backgroundColor: this.background, with3DEffect: this.with3DEffect),
         child: this.child,
       ),
     );

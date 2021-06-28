@@ -4,7 +4,10 @@ class DrawTriangleShape extends CustomPainter {
   late Paint painter;
   final Color backgroundColor;
 
-  DrawTriangleShape({this.backgroundColor = Colors.black}) {
+  final bool with3DEffect;
+
+  DrawTriangleShape(
+      {this.backgroundColor = Colors.black, this.with3DEffect = false}) {
     painter = Paint()
       ..color = this.backgroundColor
       ..style = PaintingStyle.fill;
@@ -21,6 +24,20 @@ class DrawTriangleShape extends CustomPainter {
     path.close();
 
     canvas.drawPath(path, painter);
+
+    if (this.with3DEffect) {
+      Paint shadowPainter = Paint()
+        ..color = this.backgroundColor.withAlpha(95)
+        ..style = PaintingStyle.fill;
+      var shadowPath = Path();
+      shadowPath.lineTo((size.width * 0.55), (size.height * 0));
+      shadowPath.lineTo((size.width * 0.5), (size.height * 0.05));
+      shadowPath.lineTo((size.width * 0.85), (size.height * 0.85));
+      shadowPath.lineTo((size.width * 0.9), (size.height * 0.8));
+      shadowPath.lineTo((size.width * 0.55), (size.height * 0));
+      shadowPath.close();
+      canvas.drawPath(shadowPath, shadowPainter);
+    }
   }
 
   @override
