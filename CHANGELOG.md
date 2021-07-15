@@ -1,3 +1,8 @@
+## [1.1.0] - 15-07-2021.
+
+* Add 3D effects to shapes
+* Update square shape paint
+
 ## [1.0.0] - 17-06-2021.
 
 * Add built-in animations support
