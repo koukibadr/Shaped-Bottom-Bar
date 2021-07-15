@@ -24,7 +24,8 @@ class DiamondShape extends StatelessWidget {
     return Container(
       child: CustomPaint(
         size: Size(this.size, this.size),
-        painter: DrawDiamond(backgroundColor: this.background, with3dEffect: this.with3DEffect),
+        painter: DrawDiamond(
+            backgroundColor: this.background, with3dEffect: this.with3DEffect),
         child: this.child,
       ),
     );

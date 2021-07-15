@@ -24,7 +24,8 @@ class RhombusShape extends StatelessWidget {
     return Container(
       child: CustomPaint(
         size: Size(this.size, this.size),
-        painter: DrawRhombus(backgroundColor: this.background, with3DEffect: this.with3DEffect),
+        painter: DrawRhombus(
+            backgroundColor: this.background, with3DEffect: this.with3DEffect),
         child: this.child,
       ),
     );

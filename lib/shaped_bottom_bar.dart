@@ -54,10 +54,6 @@ class ShapedBottomBar extends StatefulWidget {
       assert(this.cornerRadius != null);
     }
 
-    if (this.shape != ShapeType.NONE && this.shape != ShapeType.CUSTOM) {
-      assert(this.shapeColor != null);
-    }
-
     if (this.shape == ShapeType.CUSTOM) {
       assert(this.customShape != null);
     }
@@ -113,14 +109,28 @@ class ShapedBottomBar extends StatefulWidget {
 
 class _ShapedBottomBarState extends State<ShapedBottomBar>
     with TickerProviderStateMixin {
+  ///Current selected item index, by default it takes the value of [this.widget.selectedItemIndex]
+  ///
   late int selectedIndex;
+
+  ///List of widgets that will be displayed in the bottom bar after adding the shape
+  ///
   late List<Widget> bottomBarWidgets;
 
+  ///Used when animation type set to [FADE]
+  ///
   double opacity = 1;
 
+  ///the slide animation controller
+  ///
   late AnimationController? slideController;
 
+  ///the offset animation used for slide animation
+  ///
   late Animation<Offset>? _offsetAnimation;
+
+  ///The rotation animation controller
+  ///
   late AnimationController? rotateController;
 
   @override
@@ -282,6 +292,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
         shapedWidget = SquareShape(
             child: baseWidget,
             background: widget.shapeColor,
+            with3DEffect: this.widget.with3dEffect,
             size: this.widget.height);
         break;
       case ShapeType.TRIANGLE:
