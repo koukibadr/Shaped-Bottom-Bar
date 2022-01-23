@@ -13,21 +13,23 @@ class TriangleShape extends StatelessWidget {
   final Widget child;
   final bool render3dEffect;
 
-  TriangleShape(
-      {required this.child,
-      this.background = Colors.white,
-      this.size = 50,
-      this.render3dEffect = false});
+  const TriangleShape({
+    Key? key,
+    required this.child,
+    this.background = Colors.white,
+    this.size = 50,
+    this.render3dEffect = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CustomPaint(
-        size: Size(this.size, this.size),
-        painter: DrawTriangleShape(
-            backgroundColor: this.background!, with3DEffect: render3dEffect),
-        child: this.child,
+    return CustomPaint(
+      size: Size(size, size),
+      painter: DrawTriangleShape(
+        backgroundColor: background!,
+        with3DEffect: render3dEffect,
       ),
+      child: child,
     );
   }
 }

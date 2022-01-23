@@ -11,16 +11,23 @@ class CircleShape extends StatelessWidget {
   final Color? background;
   final Widget child;
 
-  CircleShape(
-      {required this.child, this.background = Colors.white, this.size = 50});
+  const CircleShape({
+    Key? key,
+    required this.child,
+    this.background = Colors.white,
+    this.size = 50,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: this.size * 0.8,
-      height: this.size * 0.8,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: this.background),
-      child: this.child,
+      width: size * 0.8,
+      height: size * 0.8,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: background,
+      ),
+      child: child,
     );
   }
 }

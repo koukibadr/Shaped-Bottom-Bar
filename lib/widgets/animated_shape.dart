@@ -6,16 +6,18 @@ import 'dart:math' as math;
 /// a given child widget
 ///
 class AnimatedShape extends StatelessWidget {
-  AnimatedShape(
-      {required this.shape,
-      this.animationType = ANIMATION_TYPE.none,
-      this.animationValue = 1,
-      this.animationOffset,
-      this.animationController}) {
-    if (this.animationType == ANIMATION_TYPE.slideVertically) {
-      assert(this.animationOffset != null);
-    } else if (this.animationType == ANIMATION_TYPE.rotate) {
-      assert(this.animationController != null);
+  AnimatedShape({
+    Key? key,
+    required this.shape,
+    this.animationType = ANIMATION_TYPE.none,
+    this.animationValue = 1,
+    this.animationOffset,
+    this.animationController,
+  }) : super(key: key) {
+    if (animationType == ANIMATION_TYPE.slideVertically) {
+      assert(animationOffset != null);
+    } else if (animationType == ANIMATION_TYPE.rotate) {
+      assert(animationController != null);
     }
   }
 
@@ -54,17 +56,17 @@ class AnimatedShape extends StatelessWidget {
   }
 
   Widget _renderAnimatedShape() {
-    switch (this.animationType) {
+    switch (animationType) {
       case ANIMATION_TYPE.fade:
         return AnimatedOpacity(
-          duration: Duration(milliseconds: 500),
-          opacity: this.animationValue,
-          child: this.shape,
+          duration: const Duration(milliseconds: 500),
+          opacity: animationValue,
+          child: shape,
         );
       case ANIMATION_TYPE.slideVertically:
         return SlideTransition(
           position: animationOffset!,
-          child: this.shape,
+          child: shape,
         );
       case ANIMATION_TYPE.rotate:
         return AnimatedBuilder(
@@ -75,10 +77,10 @@ class AnimatedShape extends StatelessWidget {
               child: child,
             );
           },
-          child: this.shape,
+          child: shape,
         );
       default:
-        return this.shape;
+        return shape;
     }
   }
 }

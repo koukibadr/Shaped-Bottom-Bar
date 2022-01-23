@@ -13,21 +13,23 @@ class SquareShape extends StatelessWidget {
   final Widget child;
   final bool with3DEffect;
 
-  SquareShape(
-      {this.background = Colors.black,
-      required this.child,
-      this.size = 50,
-      this.with3DEffect = false});
+  const SquareShape({
+    Key? key,
+    this.background = Colors.black,
+    required this.child,
+    this.size = 50,
+    this.with3DEffect = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CustomPaint(
-        size: Size(this.size, this.size),
-        painter: PaintSquare(
-            backgroundColor: this.background, with3dEffect: this.with3DEffect),
-        child: this.child,
+    return CustomPaint(
+      size: Size(size, size),
+      painter: PaintSquare(
+        backgroundColor: background,
+        with3dEffect: with3DEffect,
       ),
+      child: child,
     );
   }
 }

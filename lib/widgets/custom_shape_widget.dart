@@ -7,12 +7,16 @@ class CustomShapeWidget extends StatelessWidget {
   final Widget child;
   final CustomPaint shape;
 
-  CustomShapeWidget({required this.child, required this.shape});
+  const CustomShapeWidget({
+    Key? key,
+    required this.child,
+    required this.shape,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: this.shape.clone(child: this.child),
+      child: shape.clone(child: child),
     );
   }
 }

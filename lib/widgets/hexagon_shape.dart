@@ -13,23 +13,23 @@ class HexagonShape extends StatelessWidget {
   final Widget child;
   final bool with3DEffect;
 
-  HexagonShape(
-      {required this.child,
-      this.background = Colors.white,
-      this.size = 50,
-      this.with3DEffect = false});
+  const HexagonShape({
+    Key? key,
+    required this.child,
+    this.background = Colors.white,
+    this.size = 50,
+    this.with3DEffect = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return renderShape();
-  }
-
-  Widget renderShape() {
     return CustomPaint(
-      size: Size(this.size, this.size),
+      size: Size(size, size),
       painter: DrawHexagon(
-          background: this.background, with3DEffect: this.with3DEffect),
-      child: this.child,
+        background: background,
+        with3DEffect: with3DEffect,
+      ),
+      child: child,
     );
   }
 }

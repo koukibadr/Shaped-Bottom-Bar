@@ -12,17 +12,19 @@ class RoyalShape extends StatelessWidget {
   final Color? background;
   final Widget child;
 
-  RoyalShape(
-      {required this.child, this.background = Colors.white, this.size = 50});
+  const RoyalShape({
+    Key? key,
+    required this.child,
+    this.background = Colors.white,
+    this.size = 50,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CustomPaint(
-        size: Size(this.size, this.size),
-        painter: DrawRoyalShape(background: this.background),
-        child: this.child,
-      ),
+    return CustomPaint(
+      size: Size(size, size),
+      painter: DrawRoyalShape(background: background),
+      child: child,
     );
   }
 }

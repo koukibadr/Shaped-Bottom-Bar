@@ -13,21 +13,23 @@ class DiamondShape extends StatelessWidget {
   final Widget child;
   final bool with3DEffect;
 
-  DiamondShape(
-      {required this.child,
-      this.background = Colors.white,
-      this.size = 50,
-      this.with3DEffect = false});
+  const DiamondShape({
+    Key? key,
+    required this.child,
+    this.background = Colors.white,
+    this.size = 50,
+    this.with3DEffect = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CustomPaint(
-        size: Size(this.size, this.size),
-        painter: DrawDiamond(
-            backgroundColor: this.background, with3dEffect: this.with3DEffect),
-        child: this.child,
+    return CustomPaint(
+      size: Size(size, size),
+      painter: DrawDiamond(
+        backgroundColor: background,
+        with3dEffect: with3DEffect,
       ),
+      child: child,
     );
   }
 }

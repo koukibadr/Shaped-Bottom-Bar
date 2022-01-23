@@ -9,25 +9,23 @@ class ShapedBottomBarItem extends StatelessWidget {
   final bool renderWithText;
   final TextStyle? textStyle;
 
-  ShapedBottomBarItem(
-      {required this.icon,
-      this.text = "",
-      this.themeColor = Colors.black,
-      this.renderWithText = true,
-      this.textStyle});
+  const ShapedBottomBarItem({
+    Key? key,
+    required this.icon,
+    this.text = '',
+    this.themeColor = Colors.black,
+    this.renderWithText = true,
+    this.textStyle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(this.icon, color: this.themeColor),
-          this.renderWithText
-              ? Text(this.text ?? "", style: this.textStyle)
-              : Container()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: themeColor),
+        renderWithText ? Text(text ?? '', style: textStyle) : Container()
+      ],
     );
   }
 }

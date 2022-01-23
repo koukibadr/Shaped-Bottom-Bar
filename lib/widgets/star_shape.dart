@@ -12,17 +12,19 @@ class StarShape extends StatelessWidget {
   final Color background;
   final Widget child;
 
-  StarShape(
-      {required this.child, this.background = Colors.white, this.size = 50});
+  const StarShape({
+    Key? key,
+    required this.child,
+    this.background = Colors.white,
+    this.size = 50,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CustomPaint(
-        size: Size(this.size, this.size),
-        painter: DrawStar(backgroundColor: this.background),
-        child: this.child,
-      ),
+    return CustomPaint(
+      size: Size(size, size),
+      painter: DrawStar(backgroundColor: background),
+      child: child,
     );
   }
 }

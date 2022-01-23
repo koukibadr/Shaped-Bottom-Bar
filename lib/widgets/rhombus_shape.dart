@@ -13,21 +13,23 @@ class RhombusShape extends StatelessWidget {
   final Widget child;
   final bool with3DEffect;
 
-  RhombusShape(
-      {required this.child,
-      this.background = Colors.white,
-      this.size = 50,
-      this.with3DEffect = false});
+  const RhombusShape({
+    Key? key,
+    required this.child,
+    this.background = Colors.white,
+    this.size = 50,
+    this.with3DEffect = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: CustomPaint(
-        size: Size(this.size, this.size),
-        painter: DrawRhombus(
-            backgroundColor: this.background, with3DEffect: this.with3DEffect),
-        child: this.child,
+    return CustomPaint(
+      size: Size(size, size),
+      painter: DrawRhombus(
+        backgroundColor: background,
+        with3DEffect: with3DEffect,
       ),
+      child: child,
     );
   }
 }
