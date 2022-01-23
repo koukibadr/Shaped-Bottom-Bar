@@ -7,10 +7,12 @@ class DrawDiamond extends CustomPainter {
 
   final bool with3dEffect;
 
-  DrawDiamond(
-      {this.backgroundColor = Colors.black, this.with3dEffect = false}) {
+  DrawDiamond({
+    this.backgroundColor = Colors.black,
+    this.with3dEffect = false,
+  }) {
     painter = Paint()
-      ..color = this.backgroundColor
+      ..color = backgroundColor
       ..style = PaintingStyle.fill;
   }
 
@@ -28,9 +30,9 @@ class DrawDiamond extends CustomPainter {
 
     canvas.drawPath(path, painter);
 
-    if (this.with3dEffect) {
+    if (with3dEffect) {
       shadowPainter = Paint()
-        ..color = this.backgroundColor.withAlpha(90)
+        ..color = backgroundColor.withAlpha(90)
         ..style = PaintingStyle.fill;
 
       var shadowPath = Path();

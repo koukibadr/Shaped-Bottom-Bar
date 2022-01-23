@@ -5,10 +5,12 @@ class DrawPentagon extends CustomPainter {
   final Color backgroundColor;
   final bool with3DEffect;
 
-  DrawPentagon(
-      {this.backgroundColor = Colors.black, this.with3DEffect = false}) {
+  DrawPentagon({
+    this.backgroundColor = Colors.black,
+    this.with3DEffect = false,
+  }) {
     painter = Paint()
-      ..color = this.backgroundColor
+      ..color = backgroundColor
       ..style = PaintingStyle.fill;
   }
 
@@ -26,9 +28,9 @@ class DrawPentagon extends CustomPainter {
 
     canvas.drawPath(path, painter);
 
-    if (this.with3DEffect) {
+    if (with3DEffect) {
       Paint painterShadow = Paint()
-        ..color = this.backgroundColor.withAlpha(90)
+        ..color = backgroundColor.withAlpha(90)
         ..style = PaintingStyle.fill;
       var pathShadow = Path()
         ..lineTo((size.width * 0.55), (size.height * 0))

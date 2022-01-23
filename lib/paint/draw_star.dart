@@ -4,9 +4,11 @@ class DrawStar extends CustomPainter {
   late Paint painter;
   final Color backgroundColor;
 
-  DrawStar({this.backgroundColor = Colors.black}) {
+  DrawStar({
+    this.backgroundColor = Colors.black,
+  }) {
     painter = Paint()
-      ..color = this.backgroundColor
+      ..color = backgroundColor
       ..style = PaintingStyle.fill;
   }
 

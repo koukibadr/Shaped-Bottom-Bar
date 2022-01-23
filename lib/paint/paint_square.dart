@@ -5,12 +5,15 @@ class PaintSquare extends CustomPainter {
   final bool with3dEffect;
   late Paint shadowPainter;
 
-  PaintSquare({this.backgroundColor = Colors.blue, this.with3dEffect = false});
+  PaintSquare({
+    this.backgroundColor = Colors.blue,
+    this.with3dEffect = false,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint_0 = new Paint()
-      ..color = this.backgroundColor
+    Paint paint_0 = Paint()
+      ..color = backgroundColor
       ..style = PaintingStyle.fill
       ..strokeWidth = 0.0;
 
@@ -23,9 +26,9 @@ class PaintSquare extends CustomPainter {
     path.close();
 
     canvas.drawPath(path, paint_0);
-    if (this.with3dEffect) {
+    if (with3dEffect) {
       shadowPainter = Paint()
-        ..color = this.backgroundColor.withAlpha(90)
+        ..color = backgroundColor.withAlpha(90)
         ..style = PaintingStyle.fill;
 
       var shadowPath = Path();

@@ -4,20 +4,23 @@ class DrawHexagon extends CustomPainter {
   final Color background;
   final bool with3DEffect;
 
-  DrawHexagon({this.background = Colors.black, this.with3DEffect = false});
+  DrawHexagon({
+    this.background = Colors.black,
+    this.with3DEffect = false,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = new Paint()
-      ..color = this.background
+    Paint paint = Paint()
+      ..color = background
       ..style = PaintingStyle.fill;
 
     Path path = renderHexagon(size);
     canvas.drawPath(path, paint);
 
-    if (this.with3DEffect) {
+    if (with3DEffect) {
       Paint shadowPainter = Paint()
-        ..color = this.background.withAlpha(95)
+        ..color = background.withAlpha(95)
         ..style = PaintingStyle.fill;
       Path shadowPath = _renderShadow(size);
       canvas.drawPath(shadowPath, shadowPainter);

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class DrawRoyalShape extends CustomPainter {
   final Color? background;
 
-  DrawRoyalShape({this.background = Colors.black});
+  DrawRoyalShape({
+    this.background = Colors.black,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint_0 = new Paint()
-      ..color = this.background ?? Colors.black
+    Paint paint_0 = Paint()
+      ..color = background ?? Colors.black
       ..style = PaintingStyle.fill;
 
     Path path_0 = renderHexagon(size);

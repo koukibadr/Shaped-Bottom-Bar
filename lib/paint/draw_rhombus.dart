@@ -5,10 +5,12 @@ class DrawRhombus extends CustomPainter {
   final Color backgroundColor;
   final bool with3DEffect;
 
-  DrawRhombus(
-      {this.backgroundColor = Colors.black, this.with3DEffect = false}) {
+  DrawRhombus({
+    this.backgroundColor = Colors.black,
+    this.with3DEffect = false,
+  }) {
     painter = Paint()
-      ..color = this.backgroundColor
+      ..color = backgroundColor
       ..style = PaintingStyle.fill;
   }
 
@@ -25,9 +27,9 @@ class DrawRhombus extends CustomPainter {
 
     canvas.drawPath(path, painter);
 
-    if (this.with3DEffect) {
+    if (with3DEffect) {
       Paint shadowPainter = Paint()
-        ..color = this.backgroundColor.withAlpha(90)
+        ..color = backgroundColor.withAlpha(90)
         ..style = PaintingStyle.fill;
       var shadowPath = Path();
       shadowPath.lineTo((size.width * 0.55), (size.height * 0.05));

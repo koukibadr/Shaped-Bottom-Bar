@@ -4,21 +4,23 @@ class DrawRotatedHexagon extends CustomPainter {
   final Color background;
   final bool with3DEffect;
 
-  DrawRotatedHexagon(
-      {this.background = Colors.black, this.with3DEffect = false});
+  DrawRotatedHexagon({
+    this.background = Colors.black,
+    this.with3DEffect = false,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = new Paint()
-      ..color = this.background
+    Paint paint = Paint()
+      ..color = background
       ..style = PaintingStyle.fill;
 
     Path path = renderHexagon(size);
     canvas.drawPath(path, paint);
 
-    if (this.with3DEffect) {
-      Paint paintShadow = new Paint()
-        ..color = this.background.withAlpha(90)
+    if (with3DEffect) {
+      Paint paintShadow = Paint()
+        ..color = background.withAlpha(90)
         ..style = PaintingStyle.fill;
       Path shadowPath = renderHexagonShadow(size);
       canvas.drawPath(shadowPath, paintShadow);
