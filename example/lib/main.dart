@@ -27,12 +27,12 @@ class MyScreen extends StatefulWidget {
 }
 
 class _MyScreenState extends State<MyScreen> {
-  List<Widget> screens = [
-    Container(color: Colors.white),
-    Container(color: Colors.white),
-    Container(color: Colors.white),
-    Container(color: Colors.white)
-  ];
+  List<Widget> screens = List.generate(
+    4,
+    (index) => Container(
+      color: Colors.white,
+    ),
+  );
 
   int selectedItem = 0;
 
@@ -43,11 +43,22 @@ class _MyScreenState extends State<MyScreen> {
         backgroundColor: Colors.black12,
         iconsColor: Colors.black,
         listItems: [
-          ShapedItemObject(iconData: Icons.alarm, title: "Alarm"),
-          ShapedItemObject(iconData: Icons.menu_book, title: "Menu"),
           ShapedItemObject(
-              iconData: Icons.verified_user_rounded, title: "User"),
-          ShapedItemObject(iconData: Icons.login, title: "Logout"),
+            iconData: Icons.alarm,
+            title: 'Alarm',
+          ),
+          ShapedItemObject(
+            iconData: Icons.menu_book,
+            title: 'Menu',
+          ),
+          ShapedItemObject(
+            iconData: Icons.verified_user_rounded,
+            title: 'User',
+          ),
+          ShapedItemObject(
+            iconData: Icons.login,
+            title: 'Logout',
+          ),
         ],
         onItemChanged: (position) {
           setState(() {
@@ -61,7 +72,7 @@ class _MyScreenState extends State<MyScreen> {
       ),
       body: Container(
         child: Center(
-          child: Text("Shaped Bottom Bar"),
+          child: Text('Shaped Bottom Bar'),
         ),
       ),
     );

@@ -3,12 +3,13 @@ import 'package:flutter/cupertino.dart';
 extension CustomPaintExtension on CustomPaint {
   CustomPaint clone({Widget? child}) {
     return CustomPaint(
-        key: this.key,
-        painter: this.painter,
-        foregroundPainter: this.foregroundPainter,
-        size: this.size,
-        isComplex: this.isComplex,
-        willChange: this.willChange,
-        child: child);
+      key: key,
+      painter: painter,
+      foregroundPainter: foregroundPainter,
+      size: size,
+      isComplex: isComplex,
+      willChange: willChange,
+      child: child,
+    );
   }
 }
