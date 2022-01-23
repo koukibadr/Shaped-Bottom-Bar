@@ -22,7 +22,7 @@ import 'package:shaped_bottom_bar/widgets/triangle_shape.dart';
 import 'widgets/animated_shape.dart';
 
 ///The size of the bottom bar: default 70
-const double SHAPED_BOTTOM_BAR_SIZE = 70;
+const double shapedBottomBarSize = 70;
 
 ///Main widget of shaped bottom bar
 ///required [listItems] the list of [ShapedItemObject] that will be shown
@@ -32,33 +32,35 @@ const double SHAPED_BOTTOM_BAR_SIZE = 70;
 ///By default the bottom bar will be rendered without shape.
 ///to set a shape use [shape] type of [ShapeType] enum contain 6 different shapes.
 class ShapedBottomBar extends StatefulWidget {
-  ShapedBottomBar(
-      {required this.onItemChanged,
-      required this.listItems,
-      this.height = SHAPED_BOTTOM_BAR_SIZE,
-      this.width,
-      this.withRoundCorners = false,
-      this.cornerRadius,
-      this.shape = ShapeType.none,
-      this.selectedItemIndex = 0,
-      this.shapeColor = Colors.blue,
-      this.iconsColor = Colors.black,
-      this.textStyle = const TextStyle(color: Colors.black),
-      this.selectedIconColor = Colors.white,
-      this.bottomBarTopColor = Colors.white,
-      this.backgroundColor = Colors.blue,
-      this.customShape,
-      this.animationType = ANIMATION_TYPE.none,
-      this.with3dEffect = false}) {
-    if (this.withRoundCorners) {
-      assert(this.cornerRadius != null);
+  ShapedBottomBar({
+    Key? key,
+    required this.onItemChanged,
+    required this.listItems,
+    this.height = shapedBottomBarSize,
+    this.width,
+    this.withRoundCorners = false,
+    this.cornerRadius,
+    this.shape = ShapeType.none,
+    this.selectedItemIndex = 0,
+    this.shapeColor = Colors.blue,
+    this.iconsColor = Colors.black,
+    this.textStyle = const TextStyle(color: Colors.black),
+    this.selectedIconColor = Colors.white,
+    this.bottomBarTopColor = Colors.white,
+    this.backgroundColor = Colors.blue,
+    this.customShape,
+    this.animationType = ANIMATION_TYPE.none,
+    this.with3dEffect = false,
+  }) : super(key: key) {
+    if (withRoundCorners) {
+      assert(cornerRadius != null);
     }
 
-    if (this.shape == ShapeType.custom) {
-      assert(this.customShape != null);
+    if (shape == ShapeType.custom) {
+      assert(customShape != null);
     }
 
-    assert(this.listItems.isNotEmpty);
+    assert(listItems.isNotEmpty);
   }
 
   final List<ShapedItemObject> listItems;
@@ -136,7 +138,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   @override
   void initState() {
     super.initState();
-    this.selectedIndex = this.widget.selectedItemIndex;
+    selectedIndex = widget.selectedItemIndex;
 
     slideController = AnimationController(
       duration: const Duration(milliseconds: 500),
@@ -145,13 +147,19 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
     _offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, 1.5),
-    ).animate(CurvedAnimation(
-      parent: slideController!,
-      curve: Curves.ease,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: slideController!,
+        curve: Curves.ease,
+      ),
+    );
 
-    rotateController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    rotateController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 300,
+      ),
+    );
 
     generateListOfWidgets();
   }
@@ -159,9 +167,9 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: this.widget.width ?? MediaQuery.of(context).size.width,
-      height: this.widget.height,
-      color: this.widget.bottomBarTopColor,
+      width: widget.width ?? MediaQuery.of(context).size.width,
+      height: widget.height,
+      color: widget.bottomBarTopColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -175,17 +183,29 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   List<Widget> renderBarItems() {
     List<Widget> bottomBarItems = [];
     List<Widget> renderingItems = [];
-    for (var index = 0; index < this.bottomBarWidgets.length; index++) {
-      var item = this.bottomBarWidgets[index];
+    for (var index = 0; index < bottomBarWidgets.length; index++) {
+      var item = bottomBarWidgets[index];
       if (index == selectedIndex) {
         if (bottomBarItems.isNotEmpty) {
           renderingItems.addAll(bottomBarItems);
         }
-        renderingItems.add(Expanded(flex: 1, child: renderSelectedItem(item)));
+        renderingItems.add(
+          Expanded(
+            flex: 1,
+            child: renderSelectedItem(item),
+          ),
+        );
         bottomBarItems.clear();
       } else {
-        bottomBarItems
-            .add(Expanded(flex: 1, child: renderClickableWidget(index, item)));
+        bottomBarItems.add(
+          Expanded(
+            flex: 1,
+            child: renderClickableWidget(
+              index,
+              item,
+            ),
+          ),
+        );
       }
     }
     if (bottomBarItems.isNotEmpty) {
@@ -204,10 +224,10 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   Widget renderClickableWidget(int index, Widget item) {
     return InkWell(
       onTap: () {
-        this.onItemSelected(index);
+        onItemSelected(index);
       },
       child: Container(
-        height: (this.widget.height * 0.75),
+        height: (widget.height * 0.75),
         color: widget.backgroundColor,
         child: item,
       ),
@@ -222,51 +242,77 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   ///
   /// has no return value
   void onItemSelected(int position) {
-    switch (this.widget.animationType) {
+    switch (widget.animationType) {
       case ANIMATION_TYPE.fade:
         setState(() {
-          this.opacity = 0;
+          opacity = 0;
         });
-        Timer(Duration(milliseconds: 200), () {
-          this.widget.onItemChanged(position);
-          setState(() {
-            this.selectedIndex = position;
-            generateListOfWidgets();
-          });
-          Timer(Duration(milliseconds: 200), () {
-            setState(() {
-              this.opacity = 1;
-            });
-          });
-        });
+        Timer(
+          const Duration(
+            milliseconds: 200,
+          ),
+          () {
+            widget.onItemChanged(position);
+            setState(
+              () {
+                selectedIndex = position;
+                generateListOfWidgets();
+              },
+            );
+            Timer(
+              const Duration(
+                milliseconds: 200,
+              ),
+              () {
+                setState(
+                  () {
+                    opacity = 1;
+                  },
+                );
+              },
+            );
+          },
+        );
         break;
       case ANIMATION_TYPE.slideVertically:
         slideController!.animateTo(1.5);
-        Timer(Duration(milliseconds: 200), () {
-          this.widget.onItemChanged(position);
-          setState(() {
-            this.selectedIndex = position;
-            generateListOfWidgets();
-          });
-          slideController!.animateTo(0);
-        });
+        Timer(
+          const Duration(
+            milliseconds: 200,
+          ),
+          () {
+            widget.onItemChanged(position);
+            setState(() {
+              selectedIndex = position;
+              generateListOfWidgets();
+            });
+            slideController!.animateTo(0);
+          },
+        );
         break;
       case ANIMATION_TYPE.rotate:
-        this.widget.onItemChanged(position);
-        setState(() {
-          this.selectedIndex = position;
-          generateListOfWidgets();
-        });
+        widget.onItemChanged(position);
+        setState(
+          () {
+            selectedIndex = position;
+            generateListOfWidgets();
+          },
+        );
         rotateController!.forward();
-        Timer(Duration(milliseconds: 300), () {
-          rotateController!.reset();
-        });
+        Timer(
+          const Duration(milliseconds: 300),
+          () {
+            rotateController!.reset();
+          },
+        );
         break;
       default:
-        setState(() {
-          this.selectedIndex = position;
-          generateListOfWidgets();
-        });
+        setState(
+          () {
+            selectedIndex = position;
+            generateListOfWidgets();
+          },
+        );
     }
   }
 
@@ -284,90 +330,92 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
     switch (widget.shape) {
       case ShapeType.circle:
         shapedWidget = CircleShape(
-            child: baseWidget,
-            background: widget.shapeColor,
-            size: this.widget.height);
+          child: baseWidget,
+          background: widget.shapeColor,
+          size: widget.height,
+        );
         break;
       case ShapeType.square:
         shapedWidget = SquareShape(
-            child: baseWidget,
-            background: widget.shapeColor,
-            with3DEffect: this.widget.with3dEffect,
-            size: this.widget.height);
+          child: baseWidget,
+          background: widget.shapeColor,
+          with3DEffect: widget.with3dEffect,
+          size: widget.height,
+        );
         break;
       case ShapeType.triange:
         shapedWidget = TriangleShape(
           child: baseWidget,
           background: widget.shapeColor,
-          size: this.widget.height,
-          render3dEffect: this.widget.with3dEffect,
+          size: widget.height,
+          render3dEffect: widget.with3dEffect,
         );
         break;
       case ShapeType.hexagone:
         shapedWidget = HexagonShape(
           child: baseWidget,
           background: widget.shapeColor,
-          with3DEffect: this.widget.with3dEffect,
+          with3DEffect: widget.with3dEffect,
         );
         break;
       case ShapeType.rotatedHexagon:
         shapedWidget = RotatedHexagon(
           child: baseWidget,
           background: widget.shapeColor,
-          size: this.widget.height,
-          with3DEffect: this.widget.with3dEffect,
+          size: widget.height,
+          with3DEffect: widget.with3dEffect,
         );
         break;
       case ShapeType.royalShape:
         shapedWidget = RoyalShape(
           child: baseWidget,
           background: widget.shapeColor,
-          size: this.widget.height,
+          size: widget.height,
         );
         break;
       case ShapeType.pentagon:
         shapedWidget = PentagonShape(
           child: baseWidget,
           background: widget.shapeColor,
-          size: this.widget.height,
-          with3DEffect: this.widget.with3dEffect,
+          size: widget.height,
+          with3DEffect: widget.with3dEffect,
         );
         break;
       case ShapeType.star:
         shapedWidget = StarShape(
           child: baseWidget,
           background: widget.shapeColor,
-          size: this.widget.height,
+          size: widget.height,
         );
         break;
       case ShapeType.rhombus:
         shapedWidget = RhombusShape(
           child: baseWidget,
           background: widget.shapeColor,
-          size: this.widget.height,
-          with3DEffect: this.widget.with3dEffect,
+          size: widget.height,
+          with3DEffect: widget.with3dEffect,
         );
         break;
       case ShapeType.octagon:
         shapedWidget = OctagonShape(
           child: baseWidget,
           background: widget.shapeColor,
-          size: this.widget.height,
-          with3DEffect: this.widget.with3dEffect,
+          size: widget.height,
+          with3DEffect: widget.with3dEffect,
         );
         break;
       case ShapeType.diamond:
         shapedWidget = DiamondShape(
           child: baseWidget,
           background: widget.shapeColor,
-          size: this.widget.height,
-          with3DEffect: this.widget.with3dEffect,
+          size: widget.height,
+          with3DEffect: widget.with3dEffect,
         );
         break;
       case ShapeType.custom:
         shapedWidget = CustomShapeWidget(
           child: baseWidget,
-          shape: this.widget.customShape!,
+          shape: widget.customShape!,
         );
         break;
       default:
@@ -379,16 +427,17 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            height: (this.widget.height * 0.75),
+            height: (widget.height * 0.75),
             color: widget.backgroundColor,
           ),
         ),
         AnimatedShape(
-            animationType: this.widget.animationType,
-            animationValue: this.opacity,
-            animationOffset: _offsetAnimation,
-            animationController: this.rotateController,
-            shape: shapedWidget)
+          animationType: widget.animationType,
+          animationValue: opacity,
+          animationOffset: _offsetAnimation,
+          animationController: rotateController,
+          shape: shapedWidget,
+        )
       ],
     );
   }
@@ -397,23 +446,27 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   ///iterates over [this.widget.listItems] and create the apporpriate [ShapedBottomBarItem] widget
   ///
   ///this function has no parameter, and has no return value
-  generateListOfWidgets() {
+  void generateListOfWidgets() {
     bottomBarWidgets = [];
-    for (ShapedItemObject item in this.widget.listItems) {
-      if (this.widget.listItems.indexOf(item) == this.selectedIndex) {
-        bottomBarWidgets.add(ShapedBottomBarItem(
-          icon: item.iconData,
-          renderWithText: false,
-          themeColor: this.widget.selectedIconColor,
-        ));
+    for (ShapedItemObject item in widget.listItems) {
+      if (widget.listItems.indexOf(item) == selectedIndex) {
+        bottomBarWidgets.add(
+          ShapedBottomBarItem(
+            icon: item.iconData,
+            renderWithText: false,
+            themeColor: widget.selectedIconColor,
+          ),
+        );
       } else {
-        bottomBarWidgets.add(ShapedBottomBarItem(
-          icon: item.iconData,
-          text: item.title ?? "",
-          themeColor: this.widget.iconsColor,
-          renderWithText: item.title != null,
-          textStyle: this.widget.textStyle,
-        ));
+        bottomBarWidgets.add(
+          ShapedBottomBarItem(
+            icon: item.iconData,
+            text: item.title ?? '',
+            themeColor: widget.iconsColor,
+            renderWithText: item.title != null,
+            textStyle: widget.textStyle,
+          ),
+        );
       }
     }
   }
