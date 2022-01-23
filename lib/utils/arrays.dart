@@ -1,17 +1,22 @@
 enum ShapeType {
-  NONE,
-  SQUARE,
-  HEXAGONE,
-  CIRCLE,
-  TRIANGLE,
-  ROTATED_HEXAGON,
-  ROYAL_SHAPE,
-  PENTAGON,
-  STAR,
-  RHOMBUS,
-  OCATGON,
-  DIAMOND,
-  CUSTOM
+  none,
+  square,
+  hexagone,
+  circle,
+  triange,
+  rotatedHexagon,
+  royalShape,
+  pentagon,
+  star,
+  rhombus,
+  octagon,
+  diamond,
+  custom
 }
 
-enum ANIMATION_TYPE { NONE, FADE, SLIDE_VERTICALLY, ROTATE }
+enum ANIMATION_TYPE {
+  none,
+  fade,
+  slideVertically,
+  rotate,
+}

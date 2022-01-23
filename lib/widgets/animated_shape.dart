@@ -8,13 +8,13 @@ import 'dart:math' as math;
 class AnimatedShape extends StatelessWidget {
   AnimatedShape(
       {required this.shape,
-      this.animationType = ANIMATION_TYPE.NONE,
+      this.animationType = ANIMATION_TYPE.none,
       this.animationValue = 1,
       this.animationOffset,
       this.animationController}) {
-    if (this.animationType == ANIMATION_TYPE.SLIDE_VERTICALLY) {
+    if (this.animationType == ANIMATION_TYPE.slideVertically) {
       assert(this.animationOffset != null);
-    } else if (this.animationType == ANIMATION_TYPE.ROTATE) {
+    } else if (this.animationType == ANIMATION_TYPE.rotate) {
       assert(this.animationController != null);
     }
   }
@@ -36,15 +36,15 @@ class AnimatedShape extends StatelessWidget {
   ///
   final ANIMATION_TYPE animationType;
 
-  ///Animation value used as an opacity if the animation is [ANIMATION_TYPE.FADE]
+  ///Animation value used as an opacity if the animation is [ANIMATION_TYPE.fade]
   ///
   final double animationValue;
 
-  ///Animation offset used if the [animationType] equal [ANIMATION_TYPE.SLIDE_VERTICALLY]
+  ///Animation offset used if the [animationType] equal [ANIMATION_TYPE.slideVertically]
   ///
   final Animation<Offset>? animationOffset;
 
-  ///Animation controller used if the [animationType] equal [ANIMATION_TYPE.ROTATE]
+  ///Animation controller used if the [animationType] equal [ANIMATION_TYPE.rotate]
   ///
   final AnimationController? animationController;
 
@@ -55,18 +55,18 @@ class AnimatedShape extends StatelessWidget {
 
   Widget _renderAnimatedShape() {
     switch (this.animationType) {
-      case ANIMATION_TYPE.FADE:
+      case ANIMATION_TYPE.fade:
         return AnimatedOpacity(
           duration: Duration(milliseconds: 500),
           opacity: this.animationValue,
           child: this.shape,
         );
-      case ANIMATION_TYPE.SLIDE_VERTICALLY:
+      case ANIMATION_TYPE.slideVertically:
         return SlideTransition(
           position: animationOffset!,
           child: this.shape,
         );
-      case ANIMATION_TYPE.ROTATE:
+      case ANIMATION_TYPE.rotate:
         return AnimatedBuilder(
           animation: animationController!,
           builder: (_, child) {

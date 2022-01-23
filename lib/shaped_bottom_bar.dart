@@ -39,7 +39,7 @@ class ShapedBottomBar extends StatefulWidget {
       this.width,
       this.withRoundCorners = false,
       this.cornerRadius,
-      this.shape = ShapeType.NONE,
+      this.shape = ShapeType.none,
       this.selectedItemIndex = 0,
       this.shapeColor = Colors.blue,
       this.iconsColor = Colors.black,
@@ -48,13 +48,13 @@ class ShapedBottomBar extends StatefulWidget {
       this.bottomBarTopColor = Colors.white,
       this.backgroundColor = Colors.blue,
       this.customShape,
-      this.animationType = ANIMATION_TYPE.NONE,
+      this.animationType = ANIMATION_TYPE.none,
       this.with3dEffect = false}) {
     if (this.withRoundCorners) {
       assert(this.cornerRadius != null);
     }
 
-    if (this.shape == ShapeType.CUSTOM) {
+    if (this.shape == ShapeType.custom) {
       assert(this.customShape != null);
     }
 
@@ -81,7 +81,7 @@ class ShapedBottomBar extends StatefulWidget {
   final Color bottomBarTopColor;
 
   ///used to implement shaped bottom bar with custom shape
-  ///with a given CustomPaint object and set [shape] to [ShapeType.CUSTOM]
+  ///with a given CustomPaint object and set [shape] to [ShapeType.custom]
   ///
   final CustomPaint? customShape;
 
@@ -117,7 +117,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   ///
   late List<Widget> bottomBarWidgets;
 
-  ///Used when animation type set to [FADE]
+  ///Used when animation type set to [fade]
   ///
   double opacity = 1;
 
@@ -223,7 +223,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   /// has no return value
   void onItemSelected(int position) {
     switch (this.widget.animationType) {
-      case ANIMATION_TYPE.FADE:
+      case ANIMATION_TYPE.fade:
         setState(() {
           this.opacity = 0;
         });
@@ -240,7 +240,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           });
         });
         break;
-      case ANIMATION_TYPE.SLIDE_VERTICALLY:
+      case ANIMATION_TYPE.slideVertically:
         slideController!.animateTo(1.5);
         Timer(Duration(milliseconds: 200), () {
           this.widget.onItemChanged(position);
@@ -251,7 +251,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           slideController!.animateTo(0);
         });
         break;
-      case ANIMATION_TYPE.ROTATE:
+      case ANIMATION_TYPE.rotate:
         this.widget.onItemChanged(position);
         setState(() {
           this.selectedIndex = position;
@@ -272,7 +272,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
 
   ///render the selected widget
   ///based on the parameter [shape] it render the apporpriate shape
-  ///if shape equals to [ShapeType.NONE] the selected item will be just a colored icon with the color is [selectedIconColor]
+  ///if shape equals to [ShapeType.none] the selected item will be just a colored icon with the color is [selectedIconColor]
   ///
   ///the widget result will be wraped with [AnimatedShape] widget with the selected animation [widget.animationType]
   ///
@@ -282,20 +282,20 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
   Widget renderSelectedItem(Widget baseWidget) {
     Widget shapedWidget;
     switch (widget.shape) {
-      case ShapeType.CIRCLE:
+      case ShapeType.circle:
         shapedWidget = CircleShape(
             child: baseWidget,
             background: widget.shapeColor,
             size: this.widget.height);
         break;
-      case ShapeType.SQUARE:
+      case ShapeType.square:
         shapedWidget = SquareShape(
             child: baseWidget,
             background: widget.shapeColor,
             with3DEffect: this.widget.with3dEffect,
             size: this.widget.height);
         break;
-      case ShapeType.TRIANGLE:
+      case ShapeType.triange:
         shapedWidget = TriangleShape(
           child: baseWidget,
           background: widget.shapeColor,
@@ -303,14 +303,14 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           render3dEffect: this.widget.with3dEffect,
         );
         break;
-      case ShapeType.HEXAGONE:
+      case ShapeType.hexagone:
         shapedWidget = HexagonShape(
           child: baseWidget,
           background: widget.shapeColor,
           with3DEffect: this.widget.with3dEffect,
         );
         break;
-      case ShapeType.ROTATED_HEXAGON:
+      case ShapeType.rotatedHexagon:
         shapedWidget = RotatedHexagon(
           child: baseWidget,
           background: widget.shapeColor,
@@ -318,14 +318,14 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           with3DEffect: this.widget.with3dEffect,
         );
         break;
-      case ShapeType.ROYAL_SHAPE:
+      case ShapeType.royalShape:
         shapedWidget = RoyalShape(
           child: baseWidget,
           background: widget.shapeColor,
           size: this.widget.height,
         );
         break;
-      case ShapeType.PENTAGON:
+      case ShapeType.pentagon:
         shapedWidget = PentagonShape(
           child: baseWidget,
           background: widget.shapeColor,
@@ -333,14 +333,14 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           with3DEffect: this.widget.with3dEffect,
         );
         break;
-      case ShapeType.STAR:
+      case ShapeType.star:
         shapedWidget = StarShape(
           child: baseWidget,
           background: widget.shapeColor,
           size: this.widget.height,
         );
         break;
-      case ShapeType.RHOMBUS:
+      case ShapeType.rhombus:
         shapedWidget = RhombusShape(
           child: baseWidget,
           background: widget.shapeColor,
@@ -348,7 +348,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           with3DEffect: this.widget.with3dEffect,
         );
         break;
-      case ShapeType.OCATGON:
+      case ShapeType.octagon:
         shapedWidget = OctagonShape(
           child: baseWidget,
           background: widget.shapeColor,
@@ -356,7 +356,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           with3DEffect: this.widget.with3dEffect,
         );
         break;
-      case ShapeType.DIAMOND:
+      case ShapeType.diamond:
         shapedWidget = DiamondShape(
           child: baseWidget,
           background: widget.shapeColor,
@@ -364,7 +364,7 @@ class _ShapedBottomBarState extends State<ShapedBottomBar>
           with3DEffect: this.widget.with3dEffect,
         );
         break;
-      case ShapeType.CUSTOM:
+      case ShapeType.custom:
         shapedWidget = CustomShapeWidget(
           child: baseWidget,
           shape: this.widget.customShape!,
