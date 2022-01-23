@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -53,13 +54,16 @@ class _MyScreenState extends State<MyScreen> {
             this.selectedItem = position;
           });
         },
-        shape: ShapeType.SQUARE,
+        shape: ShapeType.HEXAGONE,
         shapeColor: Colors.pink,
         selectedIconColor: Colors.white,
-        with3dEffect: true,
         animationType: ANIMATION_TYPE.FADE,
       ),
-      body: Container(),
+      body: Container(
+        child: Center(
+          child: Text("Shaped Bottom Bar"),
+        ),
+      ),
     );
   }
 }
